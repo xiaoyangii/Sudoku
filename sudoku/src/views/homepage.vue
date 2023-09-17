@@ -20,6 +20,7 @@
 
 <script>
 import Footer from '@/views/footer.vue'
+import { backgroundStyles } from '@/assets/js/style.js'
 export default {
   name: 'Homepage',
   components: {
@@ -31,10 +32,11 @@ export default {
   computed: {},
   methods: {
     changeColor () {
-      console.log(this.$parent)
+      const randomIndex = Math.floor(Math.random() * backgroundStyles.length);
+      const selectedColor = backgroundStyles[randomIndex];
+      this.$emit('changeBackgroundColor', selectedColor);
     }
   },
-  created () {},
 }
 </script>
 <style scoped lang='less'>

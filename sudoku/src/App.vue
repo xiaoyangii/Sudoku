@@ -1,19 +1,29 @@
 <template>
-  <div id="app">
-    <router-view/>
+  <div id="app" :style="backgroundColor">
+    <router-view @changeBackgroundColor = updateBackgroundColor />
   </div>
 </template>
 
-
-<style lang="less">
-:root {
-  --app-background: linear-gradient(180deg, #CA6ECE 0%, #232361 100%);
+<script>
+export default {
+  data() {
+    return {
+      backgroundColor: ''
+    };
+  },
+  methods: {
+    updateBackgroundColor(selectedColor) {
+      this.backgroundColor = selectedColor;
+    }
+  }
 }
+</script>
+<style lang="less">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: var(--app-background);
+  background: linear-gradient(180deg, #CA6ECE 0%, #232361 100%);
 }
 ::-webkit-scrollbar {
   width: 0 !important;

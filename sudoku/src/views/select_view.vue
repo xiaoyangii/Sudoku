@@ -22,6 +22,7 @@
 
 <script>
 import Footer from '@/views/footer.vue'
+import { backgroundStyles } from '@/assets/js/style.js'
 export default {
   name: 'Select',
   data () {
@@ -32,7 +33,9 @@ export default {
   },
   methods: {
     changeColor() {
-
+      const randomIndex = Math.floor(Math.random() * backgroundStyles.length);
+      const selectedColor = backgroundStyles[randomIndex];
+      this.$emit('changeBackgroundColor', selectedColor);
     },
     game() {
       this.$router.push('/game')
