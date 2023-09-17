@@ -1,7 +1,7 @@
 <template>
   <div class="footer">
-      Design by Xiaoyangii
-      <a href="https://github.com/xiaoyangii/Sudoku">Github😀</a>
+      <a href="https://github.com/xiaoyangii/Sudoku" target="_blank">Design by Xiaoyang</a>
+      <a href="https://github.com/xiaoyangii/" target="_blank">Github😀</a>
   </div>
 </template>
 

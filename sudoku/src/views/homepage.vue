@@ -31,7 +31,7 @@ export default {
   computed: {},
   methods: {
     changeColor () {
-      console.log(this.$el)
+      console.log(this.$parent)
     }
   },
   created () {},
@@ -89,12 +89,12 @@ export default {
       h2 {
         position: relative;
         height: 0;
-        top: -220px;
+        top: -235px;
         left: 0;
         color: rgba(255, 255, 255, 0.80);
         text-align: center;
         font-family: Microsoft YaHei;
-        font-size: 83.4px;
+        font-size: 85px;
         font-weight: 700;
         letter-spacing: 2px;
       }

@@ -6,11 +6,14 @@
 
 
 <style lang="less">
+:root {
+  --app-background: linear-gradient(180deg, #CA6ECE 0%, #232361 100%);
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(180deg, #CA6ECE 0%, #232361 100%);
+  background: var(--app-background);
 }
 ::-webkit-scrollbar {
   width: 0 !important;
