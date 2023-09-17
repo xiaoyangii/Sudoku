@@ -1,8 +1,8 @@
 <template>
   <div class="home">
     <div class="home_header">
-      <div class="home_header_change">
-        <div class="home_header_change_bg"></div>
+      <div class="home_header_change" @click="changeColor()" title="更换主题！">
+        <img src="../assets/images/change.png" alt="" title="更换主题！">
       </div>
     </div>
     <div class="home_body">
@@ -10,35 +10,38 @@
         <h1>数独</h1>
         <h2>SUDOKU</h2>
       </div>
-      <div class="home_body_btn">
+      <div class="home_body_btn" @click="$router.push('/select')">
         START
       </div>
     </div>
-    <div class="home_footer">
-      Design by Xiaoyangii
-      <a href="https://github.com/xiaoyangii/Sudoku">Github</a>
-    </div>
+    <Footer></Footer>
   </div>
 </template>
 
 <script>
+import Footer from '@/views/footer.vue'
 export default {
   name: 'Homepage',
-  components: {},
+  components: {
+    Footer
+  },
   data () {
     return {}
   },
   computed: {},
-  watch: {},
-  methods: {},
+  methods: {
+    changeColor () {
+      console.log(this.$el)
+    }
+  },
   created () {},
 }
 </script>
 <style scoped lang='less'>
 .home {
-  width: 100%;
-  height: 1080px;
-  background: linear-gradient(180deg, #CA6ECE 0%, #232361 100%);
+  width: 100vw;
+  height: 100vh;
+  // background: linear-gradient(180deg, #CA6ECE 0%, #232361 100%);
   &_header {
     display: flex;
     justify-content: right;
@@ -54,13 +57,17 @@ export default {
       border-radius: 10px;
       border-bottom: 5px solid rgba(0, 0, 0, 0.20);
       background-color: rgba(255, 255, 255, 0.60);
-      &_bg {
+      transition: all 0.3s ease 0s;
+      &:hover {
+        cursor: pointer;
+        transform: scale(1.05);
+        transition: all 0.3s linear;
+      }
+      img {
         margin: 11px auto;
         width: 40px;
         height: 40px;
-        background: url('@/assets/images/change.jpg') no-repeat center center;
       }
-      
     }
   }
   &_body {
@@ -117,22 +124,9 @@ export default {
         color: rgba(255, 255, 255, 0.8);
         transition: all 0.4s linear;
         font-size: 42px;
+        transform: scale(1.05);
       }
     }
-  }
-  &_footer {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 110px;
-    justify-content: center;
-    color: #6A5E5E;
-    text-align: center;
-    font-family: Microsoft YaHei UI;
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
   }
 }
 
