@@ -1,6 +1,6 @@
 <template>
   <div id="app" :style="backgroundColor">
-    <router-view @changeBackgroundColor = updateBackgroundColor />
+    <router-view @changeBackgroundColor = updateBackgroundColor :bgc="backgroundColor"/>
   </div>
 </template>
 

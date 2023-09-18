@@ -31,10 +31,22 @@ export default {
   components: {
     Footer
   },
+  props: {
+    bgc:{
+      type: String,
+      required: true,
+      default:''     //默认值
+    },
+  },
   methods: {
     changeColor() {
-      const randomIndex = Math.floor(Math.random() * backgroundStyles.length);
-      const selectedColor = backgroundStyles[randomIndex];
+      let currentIndex = backgroundStyles.indexOf(this.bgc);
+      currentIndex += 1;
+      if ( currentIndex >= backgroundStyles.length ) {
+        currentIndex %= backgroundStyles.length;
+      }
+      const selectedColor = backgroundStyles[currentIndex];
+      console.log(currentIndex);
       this.$emit('changeBackgroundColor', selectedColor);
     },
     game() {
