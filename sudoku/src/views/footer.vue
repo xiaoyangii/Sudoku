@@ -16,7 +16,7 @@ export default {
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 110px;
+  height: 90px;
   justify-content: center;
   color: #6A5E5E;
   text-align: center;
