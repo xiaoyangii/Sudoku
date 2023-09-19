@@ -1,5 +1,6 @@
 <template>
   <div id="app" :style="backgroundColor">
+    <audio :src="currentSongUrl" loop autoplay ref="au"></audio>
     <router-view @changeBackgroundColor = updateBackgroundColor :bgc="backgroundColor"/>
   </div>
 </template>
@@ -8,12 +9,30 @@
 export default {
   data() {
     return {
-      backgroundColor: ''
+      backgroundColor: '',
+      playlist: [
+        'sound_bgm_3.m4a',
+        'sound_bgm_2.m4a',
+        'sound_bgm_1.mp3',
+      ],
+      isPlaying: true
     };
+  },
+  computed: {
+    currentSongUrl() {
+      if (!this.isPlaying) {
+        return null;
+      }
+      const currentSongIndex = Math.floor(Math.random() * this.playlist.length);
+      return require(`@/assets/sounds/${this.playlist[currentSongIndex]}`);
+    },
   },
   methods: {
     updateBackgroundColor(selectedColor) {
       this.backgroundColor = selectedColor;
+    },
+    toggleAudio() {
+      this.isPlaying = !this.isPlaying;
     }
   }
 }

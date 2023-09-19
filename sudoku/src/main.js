@@ -7,6 +7,7 @@ import '@/assets/style/global.css'
 import '@/assets/style/variable.less'
 import './utils/rem.js'
 
+
 Vue.config.productionTip = false
 
 new Vue({

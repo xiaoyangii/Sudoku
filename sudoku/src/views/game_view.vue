@@ -186,7 +186,7 @@ export default {
 <style scoped lang='less'>
 .game {
   width: 100vw;
-  height: 215vh;
+  height: 220vh;
   // background: linear-gradient(180deg, #CA6ECE 0%, #232361 100%);
   &_header {
     display: flex;
@@ -235,7 +235,7 @@ export default {
 
 .maingrid {
   width: 197.5vmin;
-  height: 195vmin;
+  height: 200vmin;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
