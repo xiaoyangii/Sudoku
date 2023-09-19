@@ -44,8 +44,8 @@ export default {
         currentIndex %= backgroundStyles.length;
       }
       const selectedColor = backgroundStyles[currentIndex];
-      console.log(currentIndex);
       this.$emit('changeBackgroundColor', selectedColor);
+      this.$emit('music', true);
     }
   },
 }
