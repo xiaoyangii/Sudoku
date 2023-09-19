@@ -1,6 +1,9 @@
 <template>
   <div class="home">
     <div class="home_header">
+      <div class="home_header_music" @click="music()" title="播放音乐！">
+        <img src="../assets/images/music.png" alt="" title="播放音乐！">
+      </div>
       <div class="home_header_change" @click="changeColor()" title="更换主题！">
         <img src="../assets/images/change.png" alt="" title="更换主题！">
       </div>
@@ -45,7 +48,10 @@ export default {
       }
       const selectedColor = backgroundStyles[currentIndex];
       this.$emit('changeBackgroundColor', selectedColor);
-      this.$emit('music', true);
+    },
+    music() {
+      console.log(666);
+      // this.$emit('music', true);
     }
   },
 }
@@ -60,7 +66,7 @@ export default {
     justify-content: right;
     width: 100%;
     height: 130px;
-    &_change {
+    &_change , &_music {
       display: flex;
       margin-top: 32px;
       margin-right: 32px;

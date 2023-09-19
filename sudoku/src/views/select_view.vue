@@ -4,6 +4,9 @@
       <div class="select_header_return" @click="$router.go(-1)" title="返回！">
         <img src="../assets/images/return.png" alt="" title="返回！">
       </div>
+      <div class="select_header_music" @click="music()" title="播放音乐！">
+        <img src="../assets/images/music.png" alt="" title="播放音乐！">
+      </div>
       <div class="select_header_change" @click="changeColor()" title="更换主题！">
         <img src="../assets/images/change.png" alt="" title="更换主题！">
       </div>
@@ -65,7 +68,7 @@ export default {
     justify-content: right;
     width: 100vw;
     height: 130px;
-    &_change, &_return {
+    &_change, &_return, &_music {
       display: flex;
       margin-top: 32px;
       margin-right: 32px;
