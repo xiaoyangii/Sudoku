@@ -28,6 +28,7 @@
 <script>
 import Footer from '@/views/footer.vue';
 import { backgroundStyles } from '@/assets/js/style.js'
+import { getSudoku } from '@/api/getSudoku.js'
 export default {
   name: 'Game',
   components: {
@@ -181,6 +182,9 @@ export default {
         return false;
       }
     },
+    lever () {
+      return this.$route.params.lever
+    }
   },
   methods: {
     changeColor() {
@@ -203,9 +207,14 @@ export default {
         this.$emit('music', false);
         audio.style.display = "block";
       }
+    },
+    async getsudoku () {
+      res = await getSudoku(this.lever)
     }
   },
-  created () {},
+  created () {
+    // this.getsudoku()
+  },
 }
 </script>
 <style scoped lang='less'>

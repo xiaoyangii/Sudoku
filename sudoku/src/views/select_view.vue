@@ -63,8 +63,8 @@ export default {
       console.log(currentIndex);
       this.$emit('changeBackgroundColor', selectedColor);
     },
-    game() {
-      this.$router.push('/game')
+    game(lever) {
+      this.$router.push(`/game/${lever}`)
     },
     music() {
       const au = this.$parent.$refs.au

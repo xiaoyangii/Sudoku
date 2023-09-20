@@ -15,7 +15,7 @@ const routes = [
     component: () => import('@/views/select_view.vue')
   },
   {
-    path: '/game',
+    path: '/game/:lever',
     name: 'Game',
     component: () => import('@/views/game_view.vue')
   }
