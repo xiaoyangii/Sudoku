@@ -168,7 +168,7 @@ export default {
     bgc:{
       type: String,
       required: true,
-      default:''     //默认值
+      default:'linear-gradient(180deg, #CA6ECE 0%, #232361 100%);'//默认值
     },
   },
   methods: {
@@ -181,6 +181,14 @@ export default {
       const selectedColor = backgroundStyles[currentIndex];
       console.log(currentIndex);
       this.$emit('changeBackgroundColor', selectedColor);
+    },
+    music() {
+      const au = this.$parent.$refs.au
+      if(au.paused) {
+        this.$emit('music', true);
+      } else {
+        this.$emit('music', false);
+      }
     }
   },
   created () {},

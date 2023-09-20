@@ -38,7 +38,7 @@ export default {
     bgc:{
       type: String,
       required: true,
-      default:''     //默认值
+      default: 'linear-gradient(180deg, #CA6ECE 0%, #232361 100%);'//默认值
     },
   },
   methods: {
@@ -54,6 +54,14 @@ export default {
     },
     game() {
       this.$router.push('/game')
+    },
+    music() {
+      const au = this.$parent.$refs.au
+      if(au.paused) {
+        this.$emit('music', true);
+      } else {
+        this.$emit('music', false);
+      }
     }
   },
 }
@@ -104,7 +112,7 @@ export default {
     align-items: center;
     margin: 0 auto;
     width: 50vh;
-    height: calc(100vh - 240px);
+    height: calc(100vh - 220px);
     &_difficulty {
       display: flex;
       flex-direction: column;

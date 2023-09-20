@@ -36,7 +36,7 @@ export default {
     bgc:{
       type: String,
       required: true,
-      default:''     //默认值
+      default:'linear-gradient(180deg, #CA6ECE 0%, #232361 100%);'     //默认值
     },
   },
   methods: {
@@ -50,8 +50,12 @@ export default {
       this.$emit('changeBackgroundColor', selectedColor);
     },
     music() {
-      console.log(666);
-      // this.$emit('music', true);
+      const au = this.$parent.$refs.au
+      if(au.paused) {
+        this.$emit('music', true);
+      } else {
+        this.$emit('music', false);
+      }
     }
   },
 }
@@ -92,7 +96,7 @@ export default {
   &_body {
     margin: 0 auto;
     width: 100%;
-    height: calc(100% - 240px);
+    height: calc(100% - 220px);
     &_title {
       display: flex;
       flex-direction: column;

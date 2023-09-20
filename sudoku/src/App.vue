@@ -14,6 +14,9 @@ export default {
       backgroundColor: '',
       playlist: [
         'soundbgm1.mp3',
+        'soundbgm2.mp3',
+        'soundbgm3.mp3',
+        'soundbgm4.mp3',
       ]
     };
   },
@@ -32,6 +35,7 @@ export default {
       const au = this.$refs.au;
       if (val == true) {
         au.play();
+        au.volume = 0.5;
       } else {
         au.pause()
       }
