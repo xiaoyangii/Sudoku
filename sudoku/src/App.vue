@@ -31,7 +31,6 @@ export default {
       this.backgroundColor = selectedColor;
     },
     toggleAudio(val) {
-      console.log(val);
       const au = this.$refs.au;
       if (val == true) {
         au.play();

@@ -1,7 +1,8 @@
 <template>
   <div class="home">
     <div class="home_header">
-      <div class="home_header_music" @click="music()" title="播放音乐！">
+      <div class="home_header_music" @click="music()" title="播放音乐！" ref="music_button">
+        <div class="home_header_music_before" id="au_before" v-show="isShow"></div>
         <img src="../assets/images/music.png" alt="" title="播放音乐！">
       </div>
       <div class="home_header_change" @click="changeColor()" title="更换主题！">
@@ -39,6 +40,16 @@ export default {
       default:'linear-gradient(180deg, #CA6ECE 0%, #232361 100%);'     //默认值
     },
   },
+  computed: {
+    isShow() {
+      console.log(this.$parent.$refs.au.paused);
+      if(this.$parent.$refs.au.paused) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+  },
   methods: {
     changeColor () {
       let currentIndex = backgroundStyles.indexOf(this.bgc);
@@ -51,13 +62,16 @@ export default {
     },
     music() {
       const au = this.$parent.$refs.au
+      var audio = document.getElementById("au_before");
       if(au.paused) {
         this.$emit('music', true);
+        audio.style.display = "none";
       } else {
         this.$emit('music', false);
+        audio.style.display = "block";
       }
     }
-  },
+  }
 }
 </script>
 <style scoped lang='less'>
@@ -90,6 +104,22 @@ export default {
         margin: 11px auto;
         width: 40px;
         height: 40px;
+      }
+    }
+    &_music {
+      position: relative;
+      &_before {
+        display: block;
+        content: "";
+        position: absolute;
+        left: 18px;
+        top: 0px;
+        width: 50%;
+        height: 33px;
+        box-sizing: border-box;
+        border-bottom: 4px solid rgba(255, 255, 255, 0.80);
+        transform-origin: bottom center;
+        transform: rotateZ(45deg) scale(1.414);
       }
     }
   }
