@@ -1,9 +1,9 @@
 import request from '@/utils/request.js'
 
-export const getSudoku = (level) => {
-  return request.post('', {
+export const getSudoku = (difficulty) => {
+  return request.get('/newSudoku/createTerminalMatrix', {
     params: {
-      level
+      difficulty
     }
   })
 }
