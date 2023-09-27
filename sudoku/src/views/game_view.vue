@@ -210,10 +210,11 @@ export default {
     },
     async getsudoku () {
       res = await getSudoku(this.lever)
+      console.log(res)
     }
   },
   created () {
-    // this.getsudoku()
+    this.getsudoku()
   },
 }
 </script>

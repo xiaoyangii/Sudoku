@@ -1,7 +1,7 @@
 import request from '@/utils/request.js'
 
 export const getSudoku = (difficulty) => {
-  return request.get('/newSudoku/createTerminalMatrix', {
+  return request.get('/sudo', {
     params: {
       difficulty
     }
