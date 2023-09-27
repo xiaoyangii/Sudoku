@@ -14,9 +14,9 @@
     </div>
     <div class="game_body">
       <div class="maingrid">
-        <div class="grid" :id="Sudoku.Sid" v-for="Sudoku in SUDOKU" :key="Sudoku.Sid">
-          <div class="grid_block" :id="block.id" v-for="block in Sudoku.blocks" :key="block.id">
-            <div class="grid_block_box" :id="box.sid" v-for="box in block.sudoku" :key="box.sid">{{ box.value }}</div>
+        <div class="grid" v-for="(Sudoku, index) in SUDOKU" :key="index">
+          <div class="grid_block" v-for="(block, index) in Sudoku" :key="index">
+            <div class="grid_block_box" v-for="(box, index) in block" :key="index">{{ box }}</div>
           </div>
         </div>
       </div>
@@ -36,134 +36,7 @@ export default {
   },
   data () {
     return {
-      SUDOKU: [
-        {
-          blocks: [
-            { id: "one", sudoku: [ { value: "", sid: "one-1"}, { value: 9, sid: "one-2"}, { value: "", sid: "one-3"}, { value: 7, sid: "one-4"}, { value: 3, sid: "one-5"}, { value: "", sid: "one-6"}, { value: 8, sid: "one-7"}, { value: 6, sid: "one-8"}, { value: "", sid: "one-9"}] },
-            { id: "two", sudoku: [ { value: "", sid: "two-1"}, { value: "3", sid: "two-2"}, { value: "1", sid: "two-3"}, { value: "", sid: "two-4"}, { value: "8", sid: "two-5"}, { value: "6", sid: "two-6"}, { value: "7", sid: "two-7"}, { value: "", sid: "two-8"}, { value: "2", sid: "two-9"}] },
-            { id: "three", sudoku: [ { value: "", sid: "three-1"}, { value: "6", sid: "three-2"}, { value: "7", sid: "three-3"}, { value: "9", sid: "three-4"}, { value: "1", sid: "three-5"}, { value: "", sid: "three-6"}, { value: "3", sid: "three-7"}, { value: "4", sid: "three-8"}, { value: "", sid: "three-9"}] },
-            { id: "four", sudoku: [ { value: "", sid: "four-1"}, { value: "7", sid: "four-2"}, { value: "9", sid: "four-3"}, { value: "5", sid: "four-4"}, { value: "", sid: "four-5"}, { value: "3", sid: "four-6"}, { value: "", sid: "four-7"}, { value: "", sid: "four-8"}, { value: "", sid: "four-9"}] },
-            { id: "five", sudoku: [ { value: "", sid: "five-1"}, { value: "1", sid: "five-2"}, { value: "", sid: "five-3"}, { value: "", sid: "five-4"}, { value: "2", sid: "five-5"}, { value: "4", sid: "five-6"}, { value: "9", sid: "five-7"}, { value: "6", sid: "five-8"}, { value: "7", sid: "five-9"}] },
-            { id: "six", sudoku: [ { value: "", sid: "six-1"}, { value: "2", sid: "six-2"}, { value: "8", sid: "six-3"}, { value: "", sid: "six-4"}, { value: "9", sid: "six-5"}, { value: "6", sid: "six-6"}, { value: "", sid: "six-7"}, { value: "5", sid: "six-8"}, { value: "3", sid: "six-9"}] },
-            { id: "seven", sudoku: [ { value: "1", sid: "seven-1"}, { value: "", sid: "seven-2"}, { value: "7", sid: "seven-3"}, { value: "", sid: "seven-4"}, { value: "", sid: "seven-5"}, { value: "6", sid: "seven-6"}, { value: "9", sid: "seven-7"}, { value: "", sid: "seven-8"}, { value: "4", sid: "seven-9"}] },
-            { id: "eight", sudoku: [ { value: "6", sid: "eight-1"}, { value: "5", sid: "eight-2"}, { value: "", sid: "eight-3"}, { value: "", sid: "eight-4"}, { value: "4", sid: "eight-5"}, { value: "", sid: "eight-6"}, { value: "2", sid: "eight-7"}, { value: 1, sid: "eight-8"}, { value: "", sid: "eight-9"}] },
-            { id: "nine", sudoku: [ { value: "", sid: "nine-1"}, { value: "", sid: "nine-2"}, { value: "4", sid: "nine-3"}, { value: "5", sid: "nine-4"}, { value: "7", sid: "nine-5"}, { value: "9", sid: "nine-6"}, { value: "6", sid: "nine-7"}, { value: "", sid: "nine-8"}, { value: "", sid: "nine-9"}] },
-          ],
-          Sid: "first"
-        },
-        {
-          blocks: [
-            { id: "one", sudoku: [ { value: "", sid: "one-1"}, { value: 9, sid: "one-2"}, { value: "", sid: "one-3"}, { value: 7, sid: "one-4"}, { value: 3, sid: "one-5"}, { value: "", sid: "one-6"}, { value: 8, sid: "one-7"}, { value: 6, sid: "one-8"}, { value: "", sid: "one-9"}] },
-            { id: "two", sudoku: [ { value: "", sid: "two-1"}, { value: "3", sid: "two-2"}, { value: "1", sid: "two-3"}, { value: "", sid: "two-4"}, { value: "8", sid: "two-5"}, { value: "6", sid: "two-6"}, { value: "7", sid: "two-7"}, { value: "", sid: "two-8"}, { value: "2", sid: "two-9"}] },
-            { id: "three", sudoku: [ { value: "", sid: "three-1"}, { value: "6", sid: "three-2"}, { value: "7", sid: "three-3"}, { value: "9", sid: "three-4"}, { value: "1", sid: "three-5"}, { value: "", sid: "three-6"}, { value: "3", sid: "three-7"}, { value: "4", sid: "three-8"}, { value: "", sid: "three-9"}] },
-            { id: "four", sudoku: [ { value: "", sid: "four-1"}, { value: "7", sid: "four-2"}, { value: "9", sid: "four-3"}, { value: "5", sid: "four-4"}, { value: "", sid: "four-5"}, { value: "3", sid: "four-6"}, { value: "", sid: "four-7"}, { value: "", sid: "four-8"}, { value: "", sid: "four-9"}] },
-            { id: "five", sudoku: [ { value: "", sid: "five-1"}, { value: "1", sid: "five-2"}, { value: "", sid: "five-3"}, { value: "", sid: "five-4"}, { value: "2", sid: "five-5"}, { value: "4", sid: "five-6"}, { value: "9", sid: "five-7"}, { value: "6", sid: "five-8"}, { value: "7", sid: "five-9"}] },
-            { id: "six", sudoku: [ { value: "", sid: "six-1"}, { value: "2", sid: "six-2"}, { value: "8", sid: "six-3"}, { value: "", sid: "six-4"}, { value: "9", sid: "six-5"}, { value: "6", sid: "six-6"}, { value: "", sid: "six-7"}, { value: "5", sid: "six-8"}, { value: "3", sid: "six-9"}] },
-            { id: "seven", sudoku: [ { value: "1", sid: "seven-1"}, { value: "", sid: "seven-2"}, { value: "7", sid: "seven-3"}, { value: "", sid: "seven-4"}, { value: "", sid: "seven-5"}, { value: "6", sid: "seven-6"}, { value: "9", sid: "seven-7"}, { value: "", sid: "seven-8"}, { value: "4", sid: "seven-9"}] },
-            { id: "eight", sudoku: [ { value: "6", sid: "eight-1"}, { value: "5", sid: "eight-2"}, { value: "", sid: "eight-3"}, { value: "", sid: "eight-4"}, { value: "4", sid: "eight-5"}, { value: "", sid: "eight-6"}, { value: "2", sid: "eight-7"}, { value: 1, sid: "eight-8"}, { value: "", sid: "eight-9"}] },
-            { id: "nine", sudoku: [ { value: "", sid: "nine-1"}, { value: "", sid: "nine-2"}, { value: "4", sid: "nine-3"}, { value: "5", sid: "nine-4"}, { value: "7", sid: "nine-5"}, { value: "9", sid: "nine-6"}, { value: "6", sid: "nine-7"}, { value: "", sid: "nine-8"}, { value: "", sid: "nine-9"}] },
-          ],
-          Sid: "second"
-        },
-        {
-          blocks: [
-            { id: "one", sudoku: [ { value: "", sid: "one-1"}, { value: 9, sid: "one-2"}, { value: "", sid: "one-3"}, { value: 7, sid: "one-4"}, { value: 3, sid: "one-5"}, { value: "", sid: "one-6"}, { value: 8, sid: "one-7"}, { value: 6, sid: "one-8"}, { value: "", sid: "one-9"}] },
-            { id: "two", sudoku: [ { value: "", sid: "two-1"}, { value: "3", sid: "two-2"}, { value: "1", sid: "two-3"}, { value: "", sid: "two-4"}, { value: "8", sid: "two-5"}, { value: "6", sid: "two-6"}, { value: "7", sid: "two-7"}, { value: "", sid: "two-8"}, { value: "2", sid: "two-9"}] },
-            { id: "three", sudoku: [ { value: "", sid: "three-1"}, { value: "6", sid: "three-2"}, { value: "7", sid: "three-3"}, { value: "9", sid: "three-4"}, { value: "1", sid: "three-5"}, { value: "", sid: "three-6"}, { value: "3", sid: "three-7"}, { value: "4", sid: "three-8"}, { value: "", sid: "three-9"}] },
-            { id: "four", sudoku: [ { value: "", sid: "four-1"}, { value: "7", sid: "four-2"}, { value: "9", sid: "four-3"}, { value: "5", sid: "four-4"}, { value: "", sid: "four-5"}, { value: "3", sid: "four-6"}, { value: "", sid: "four-7"}, { value: "", sid: "four-8"}, { value: "", sid: "four-9"}] },
-            { id: "five", sudoku: [ { value: "", sid: "five-1"}, { value: "1", sid: "five-2"}, { value: "", sid: "five-3"}, { value: "", sid: "five-4"}, { value: "2", sid: "five-5"}, { value: "4", sid: "five-6"}, { value: "9", sid: "five-7"}, { value: "6", sid: "five-8"}, { value: "7", sid: "five-9"}] },
-            { id: "six", sudoku: [ { value: "", sid: "six-1"}, { value: "2", sid: "six-2"}, { value: "8", sid: "six-3"}, { value: "", sid: "six-4"}, { value: "9", sid: "six-5"}, { value: "6", sid: "six-6"}, { value: "", sid: "six-7"}, { value: "5", sid: "six-8"}, { value: "3", sid: "six-9"}] },
-            { id: "seven", sudoku: [ { value: "1", sid: "seven-1"}, { value: "", sid: "seven-2"}, { value: "7", sid: "seven-3"}, { value: "", sid: "seven-4"}, { value: "", sid: "seven-5"}, { value: "6", sid: "seven-6"}, { value: "9", sid: "seven-7"}, { value: "", sid: "seven-8"}, { value: "4", sid: "seven-9"}] },
-            { id: "eight", sudoku: [ { value: "6", sid: "eight-1"}, { value: "5", sid: "eight-2"}, { value: "", sid: "eight-3"}, { value: "", sid: "eight-4"}, { value: "4", sid: "eight-5"}, { value: "", sid: "eight-6"}, { value: "2", sid: "eight-7"}, { value: 1, sid: "eight-8"}, { value: "", sid: "eight-9"}] },
-            { id: "nine", sudoku: [ { value: "", sid: "nine-1"}, { value: "", sid: "nine-2"}, { value: "4", sid: "nine-3"}, { value: "5", sid: "nine-4"}, { value: "7", sid: "nine-5"}, { value: "9", sid: "nine-6"}, { value: "6", sid: "nine-7"}, { value: "", sid: "nine-8"}, { value: "", sid: "nine-9"}] },
-          ],
-          Sid: "third"
-        },
-        {
-          blocks: [
-            { id: "one", sudoku: [ { value: "", sid: "one-1"}, { value: 9, sid: "one-2"}, { value: "", sid: "one-3"}, { value: 7, sid: "one-4"}, { value: 3, sid: "one-5"}, { value: "", sid: "one-6"}, { value: 8, sid: "one-7"}, { value: 6, sid: "one-8"}, { value: "", sid: "one-9"}] },
-            { id: "two", sudoku: [ { value: "", sid: "two-1"}, { value: "3", sid: "two-2"}, { value: "1", sid: "two-3"}, { value: "", sid: "two-4"}, { value: "8", sid: "two-5"}, { value: "6", sid: "two-6"}, { value: "7", sid: "two-7"}, { value: "", sid: "two-8"}, { value: "2", sid: "two-9"}] },
-            { id: "three", sudoku: [ { value: "", sid: "three-1"}, { value: "6", sid: "three-2"}, { value: "7", sid: "three-3"}, { value: "9", sid: "three-4"}, { value: "1", sid: "three-5"}, { value: "", sid: "three-6"}, { value: "3", sid: "three-7"}, { value: "4", sid: "three-8"}, { value: "", sid: "three-9"}] },
-            { id: "four", sudoku: [ { value: "", sid: "four-1"}, { value: "7", sid: "four-2"}, { value: "9", sid: "four-3"}, { value: "5", sid: "four-4"}, { value: "", sid: "four-5"}, { value: "3", sid: "four-6"}, { value: "", sid: "four-7"}, { value: "", sid: "four-8"}, { value: "", sid: "four-9"}] },
-            { id: "five", sudoku: [ { value: "", sid: "five-1"}, { value: "1", sid: "five-2"}, { value: "", sid: "five-3"}, { value: "", sid: "five-4"}, { value: "2", sid: "five-5"}, { value: "4", sid: "five-6"}, { value: "9", sid: "five-7"}, { value: "6", sid: "five-8"}, { value: "7", sid: "five-9"}] },
-            { id: "six", sudoku: [ { value: "", sid: "six-1"}, { value: "2", sid: "six-2"}, { value: "8", sid: "six-3"}, { value: "", sid: "six-4"}, { value: "9", sid: "six-5"}, { value: "6", sid: "six-6"}, { value: "", sid: "six-7"}, { value: "5", sid: "six-8"}, { value: "3", sid: "six-9"}] },
-            { id: "seven", sudoku: [ { value: "1", sid: "seven-1"}, { value: "", sid: "seven-2"}, { value: "7", sid: "seven-3"}, { value: "", sid: "seven-4"}, { value: "", sid: "seven-5"}, { value: "6", sid: "seven-6"}, { value: "9", sid: "seven-7"}, { value: "", sid: "seven-8"}, { value: "4", sid: "seven-9"}] },
-            { id: "eight", sudoku: [ { value: "6", sid: "eight-1"}, { value: "5", sid: "eight-2"}, { value: "", sid: "eight-3"}, { value: "", sid: "eight-4"}, { value: "4", sid: "eight-5"}, { value: "", sid: "eight-6"}, { value: "2", sid: "eight-7"}, { value: 1, sid: "eight-8"}, { value: "", sid: "eight-9"}] },
-            { id: "nine", sudoku: [ { value: "", sid: "nine-1"}, { value: "", sid: "nine-2"}, { value: "4", sid: "nine-3"}, { value: "5", sid: "nine-4"}, { value: "7", sid: "nine-5"}, { value: "9", sid: "nine-6"}, { value: "6", sid: "nine-7"}, { value: "", sid: "nine-8"}, { value: "", sid: "nine-9"}] },
-          ],
-          Sid: "fourth"
-        },
-        {
-          blocks: [
-            { id: "one", sudoku: [ { value: "", sid: "one-1"}, { value: 9, sid: "one-2"}, { value: "", sid: "one-3"}, { value: 7, sid: "one-4"}, { value: 3, sid: "one-5"}, { value: "", sid: "one-6"}, { value: 8, sid: "one-7"}, { value: 6, sid: "one-8"}, { value: "", sid: "one-9"}] },
-            { id: "two", sudoku: [ { value: "", sid: "two-1"}, { value: "3", sid: "two-2"}, { value: "1", sid: "two-3"}, { value: "", sid: "two-4"}, { value: "8", sid: "two-5"}, { value: "6", sid: "two-6"}, { value: "7", sid: "two-7"}, { value: "", sid: "two-8"}, { value: "2", sid: "two-9"}] },
-            { id: "three", sudoku: [ { value: "", sid: "three-1"}, { value: "6", sid: "three-2"}, { value: "7", sid: "three-3"}, { value: "9", sid: "three-4"}, { value: "1", sid: "three-5"}, { value: "", sid: "three-6"}, { value: "3", sid: "three-7"}, { value: "4", sid: "three-8"}, { value: "", sid: "three-9"}] },
-            { id: "four", sudoku: [ { value: "", sid: "four-1"}, { value: "7", sid: "four-2"}, { value: "9", sid: "four-3"}, { value: "5", sid: "four-4"}, { value: "", sid: "four-5"}, { value: "3", sid: "four-6"}, { value: "", sid: "four-7"}, { value: "", sid: "four-8"}, { value: "", sid: "four-9"}] },
-            { id: "five", sudoku: [ { value: "", sid: "five-1"}, { value: "1", sid: "five-2"}, { value: "", sid: "five-3"}, { value: "", sid: "five-4"}, { value: "2", sid: "five-5"}, { value: "4", sid: "five-6"}, { value: "9", sid: "five-7"}, { value: "6", sid: "five-8"}, { value: "7", sid: "five-9"}] },
-            { id: "six", sudoku: [ { value: "", sid: "six-1"}, { value: "2", sid: "six-2"}, { value: "8", sid: "six-3"}, { value: "", sid: "six-4"}, { value: "9", sid: "six-5"}, { value: "6", sid: "six-6"}, { value: "", sid: "six-7"}, { value: "5", sid: "six-8"}, { value: "3", sid: "six-9"}] },
-            { id: "seven", sudoku: [ { value: "1", sid: "seven-1"}, { value: "", sid: "seven-2"}, { value: "7", sid: "seven-3"}, { value: "", sid: "seven-4"}, { value: "", sid: "seven-5"}, { value: "6", sid: "seven-6"}, { value: "9", sid: "seven-7"}, { value: "", sid: "seven-8"}, { value: "4", sid: "seven-9"}] },
-            { id: "eight", sudoku: [ { value: "6", sid: "eight-1"}, { value: "5", sid: "eight-2"}, { value: "", sid: "eight-3"}, { value: "", sid: "eight-4"}, { value: "4", sid: "eight-5"}, { value: "", sid: "eight-6"}, { value: "2", sid: "eight-7"}, { value: 1, sid: "eight-8"}, { value: "", sid: "eight-9"}] },
-            { id: "nine", sudoku: [ { value: "", sid: "nine-1"}, { value: "", sid: "nine-2"}, { value: "4", sid: "nine-3"}, { value: "5", sid: "nine-4"}, { value: "7", sid: "nine-5"}, { value: "9", sid: "nine-6"}, { value: "6", sid: "nine-7"}, { value: "", sid: "nine-8"}, { value: "", sid: "nine-9"}] },
-          ],
-          Sid: "fifth"
-        },
-        {
-          blocks: [
-            { id: "one", sudoku: [ { value: "", sid: "one-1"}, { value: 9, sid: "one-2"}, { value: "", sid: "one-3"}, { value: 7, sid: "one-4"}, { value: 3, sid: "one-5"}, { value: "", sid: "one-6"}, { value: 8, sid: "one-7"}, { value: 6, sid: "one-8"}, { value: "", sid: "one-9"}] },
-            { id: "two", sudoku: [ { value: "", sid: "two-1"}, { value: "3", sid: "two-2"}, { value: "1", sid: "two-3"}, { value: "", sid: "two-4"}, { value: "8", sid: "two-5"}, { value: "6", sid: "two-6"}, { value: "7", sid: "two-7"}, { value: "", sid: "two-8"}, { value: "2", sid: "two-9"}] },
-            { id: "three", sudoku: [ { value: "", sid: "three-1"}, { value: "6", sid: "three-2"}, { value: "7", sid: "three-3"}, { value: "9", sid: "three-4"}, { value: "1", sid: "three-5"}, { value: "", sid: "three-6"}, { value: "3", sid: "three-7"}, { value: "4", sid: "three-8"}, { value: "", sid: "three-9"}] },
-            { id: "four", sudoku: [ { value: "", sid: "four-1"}, { value: "7", sid: "four-2"}, { value: "9", sid: "four-3"}, { value: "5", sid: "four-4"}, { value: "", sid: "four-5"}, { value: "3", sid: "four-6"}, { value: "", sid: "four-7"}, { value: "", sid: "four-8"}, { value: "", sid: "four-9"}] },
-            { id: "five", sudoku: [ { value: "", sid: "five-1"}, { value: "1", sid: "five-2"}, { value: "", sid: "five-3"}, { value: "", sid: "five-4"}, { value: "2", sid: "five-5"}, { value: "4", sid: "five-6"}, { value: "9", sid: "five-7"}, { value: "6", sid: "five-8"}, { value: "7", sid: "five-9"}] },
-            { id: "six", sudoku: [ { value: "", sid: "six-1"}, { value: "2", sid: "six-2"}, { value: "8", sid: "six-3"}, { value: "", sid: "six-4"}, { value: "9", sid: "six-5"}, { value: "6", sid: "six-6"}, { value: "", sid: "six-7"}, { value: "5", sid: "six-8"}, { value: "3", sid: "six-9"}] },
-            { id: "seven", sudoku: [ { value: "1", sid: "seven-1"}, { value: "", sid: "seven-2"}, { value: "7", sid: "seven-3"}, { value: "", sid: "seven-4"}, { value: "", sid: "seven-5"}, { value: "6", sid: "seven-6"}, { value: "9", sid: "seven-7"}, { value: "", sid: "seven-8"}, { value: "4", sid: "seven-9"}] },
-            { id: "eight", sudoku: [ { value: "6", sid: "eight-1"}, { value: "5", sid: "eight-2"}, { value: "", sid: "eight-3"}, { value: "", sid: "eight-4"}, { value: "4", sid: "eight-5"}, { value: "", sid: "eight-6"}, { value: "2", sid: "eight-7"}, { value: 1, sid: "eight-8"}, { value: "", sid: "eight-9"}] },
-            { id: "nine", sudoku: [ { value: "", sid: "nine-1"}, { value: "", sid: "nine-2"}, { value: "4", sid: "nine-3"}, { value: "5", sid: "nine-4"}, { value: "7", sid: "nine-5"}, { value: "9", sid: "nine-6"}, { value: "6", sid: "nine-7"}, { value: "", sid: "nine-8"}, { value: "", sid: "nine-9"}] },
-          ],
-          Sid: "sixth"
-        },
-        {
-          blocks: [
-            { id: "one", sudoku: [ { value: "", sid: "one-1"}, { value: 9, sid: "one-2"}, { value: "", sid: "one-3"}, { value: 7, sid: "one-4"}, { value: 3, sid: "one-5"}, { value: "", sid: "one-6"}, { value: 8, sid: "one-7"}, { value: 6, sid: "one-8"}, { value: "", sid: "one-9"}] },
-            { id: "two", sudoku: [ { value: "", sid: "two-1"}, { value: "3", sid: "two-2"}, { value: "1", sid: "two-3"}, { value: "", sid: "two-4"}, { value: "8", sid: "two-5"}, { value: "6", sid: "two-6"}, { value: "7", sid: "two-7"}, { value: "", sid: "two-8"}, { value: "2", sid: "two-9"}] },
-            { id: "three", sudoku: [ { value: "", sid: "three-1"}, { value: "6", sid: "three-2"}, { value: "7", sid: "three-3"}, { value: "9", sid: "three-4"}, { value: "1", sid: "three-5"}, { value: "", sid: "three-6"}, { value: "3", sid: "three-7"}, { value: "4", sid: "three-8"}, { value: "", sid: "three-9"}] },
-            { id: "four", sudoku: [ { value: "", sid: "four-1"}, { value: "7", sid: "four-2"}, { value: "9", sid: "four-3"}, { value: "5", sid: "four-4"}, { value: "", sid: "four-5"}, { value: "3", sid: "four-6"}, { value: "", sid: "four-7"}, { value: "", sid: "four-8"}, { value: "", sid: "four-9"}] },
-            { id: "five", sudoku: [ { value: "", sid: "five-1"}, { value: "1", sid: "five-2"}, { value: "", sid: "five-3"}, { value: "", sid: "five-4"}, { value: "2", sid: "five-5"}, { value: "4", sid: "five-6"}, { value: "9", sid: "five-7"}, { value: "6", sid: "five-8"}, { value: "7", sid: "five-9"}] },
-            { id: "six", sudoku: [ { value: "", sid: "six-1"}, { value: "2", sid: "six-2"}, { value: "8", sid: "six-3"}, { value: "", sid: "six-4"}, { value: "9", sid: "six-5"}, { value: "6", sid: "six-6"}, { value: "", sid: "six-7"}, { value: "5", sid: "six-8"}, { value: "3", sid: "six-9"}] },
-            { id: "seven", sudoku: [ { value: "1", sid: "seven-1"}, { value: "", sid: "seven-2"}, { value: "7", sid: "seven-3"}, { value: "", sid: "seven-4"}, { value: "", sid: "seven-5"}, { value: "6", sid: "seven-6"}, { value: "9", sid: "seven-7"}, { value: "", sid: "seven-8"}, { value: "4", sid: "seven-9"}] },
-            { id: "eight", sudoku: [ { value: "6", sid: "eight-1"}, { value: "5", sid: "eight-2"}, { value: "", sid: "eight-3"}, { value: "", sid: "eight-4"}, { value: "4", sid: "eight-5"}, { value: "", sid: "eight-6"}, { value: "2", sid: "eight-7"}, { value: 1, sid: "eight-8"}, { value: "", sid: "eight-9"}] },
-            { id: "nine", sudoku: [ { value: "", sid: "nine-1"}, { value: "", sid: "nine-2"}, { value: "4", sid: "nine-3"}, { value: "5", sid: "nine-4"}, { value: "7", sid: "nine-5"}, { value: "9", sid: "nine-6"}, { value: "6", sid: "nine-7"}, { value: "", sid: "nine-8"}, { value: "", sid: "nine-9"}] },
-          ],
-          Sid: "seventh"
-        },
-        {
-          blocks: [
-            { id: "one", sudoku: [ { value: "", sid: "one-1"}, { value: 9, sid: "one-2"}, { value: "", sid: "one-3"}, { value: 7, sid: "one-4"}, { value: 3, sid: "one-5"}, { value: "", sid: "one-6"}, { value: 8, sid: "one-7"}, { value: 6, sid: "one-8"}, { value: "", sid: "one-9"}] },
-            { id: "two", sudoku: [ { value: "", sid: "two-1"}, { value: "3", sid: "two-2"}, { value: "1", sid: "two-3"}, { value: "", sid: "two-4"}, { value: "8", sid: "two-5"}, { value: "6", sid: "two-6"}, { value: "7", sid: "two-7"}, { value: "", sid: "two-8"}, { value: "2", sid: "two-9"}] },
-            { id: "three", sudoku: [ { value: "", sid: "three-1"}, { value: "6", sid: "three-2"}, { value: "7", sid: "three-3"}, { value: "9", sid: "three-4"}, { value: "1", sid: "three-5"}, { value: "", sid: "three-6"}, { value: "3", sid: "three-7"}, { value: "4", sid: "three-8"}, { value: "", sid: "three-9"}] },
-            { id: "four", sudoku: [ { value: "", sid: "four-1"}, { value: "7", sid: "four-2"}, { value: "9", sid: "four-3"}, { value: "5", sid: "four-4"}, { value: "", sid: "four-5"}, { value: "3", sid: "four-6"}, { value: "", sid: "four-7"}, { value: "", sid: "four-8"}, { value: "", sid: "four-9"}] },
-            { id: "five", sudoku: [ { value: "", sid: "five-1"}, { value: "1", sid: "five-2"}, { value: "", sid: "five-3"}, { value: "", sid: "five-4"}, { value: "2", sid: "five-5"}, { value: "4", sid: "five-6"}, { value: "9", sid: "five-7"}, { value: "6", sid: "five-8"}, { value: "7", sid: "five-9"}] },
-            { id: "six", sudoku: [ { value: "", sid: "six-1"}, { value: "2", sid: "six-2"}, { value: "8", sid: "six-3"}, { value: "", sid: "six-4"}, { value: "9", sid: "six-5"}, { value: "6", sid: "six-6"}, { value: "", sid: "six-7"}, { value: "5", sid: "six-8"}, { value: "3", sid: "six-9"}] },
-            { id: "seven", sudoku: [ { value: "1", sid: "seven-1"}, { value: "", sid: "seven-2"}, { value: "7", sid: "seven-3"}, { value: "", sid: "seven-4"}, { value: "", sid: "seven-5"}, { value: "6", sid: "seven-6"}, { value: "9", sid: "seven-7"}, { value: "", sid: "seven-8"}, { value: "4", sid: "seven-9"}] },
-            { id: "eight", sudoku: [ { value: "6", sid: "eight-1"}, { value: "5", sid: "eight-2"}, { value: "", sid: "eight-3"}, { value: "", sid: "eight-4"}, { value: "4", sid: "eight-5"}, { value: "", sid: "eight-6"}, { value: "2", sid: "eight-7"}, { value: 1, sid: "eight-8"}, { value: "", sid: "eight-9"}] },
-            { id: "nine", sudoku: [ { value: "", sid: "nine-1"}, { value: "", sid: "nine-2"}, { value: "4", sid: "nine-3"}, { value: "5", sid: "nine-4"}, { value: "7", sid: "nine-5"}, { value: "9", sid: "nine-6"}, { value: "6", sid: "nine-7"}, { value: "", sid: "nine-8"}, { value: "", sid: "nine-9"}] },
-          ],
-          Sid: "eighth"
-        },
-        {
-          blocks: [
-            { id: "one", sudoku: [ { value: "", sid: "one-1"}, { value: 9, sid: "one-2"}, { value: "", sid: "one-3"}, { value: 7, sid: "one-4"}, { value: 3, sid: "one-5"}, { value: "", sid: "one-6"}, { value: 8, sid: "one-7"}, { value: 6, sid: "one-8"}, { value: "", sid: "one-9"}] },
-            { id: "two", sudoku: [ { value: "", sid: "two-1"}, { value: "3", sid: "two-2"}, { value: "1", sid: "two-3"}, { value: "", sid: "two-4"}, { value: "8", sid: "two-5"}, { value: "6", sid: "two-6"}, { value: "7", sid: "two-7"}, { value: "", sid: "two-8"}, { value: "2", sid: "two-9"}] },
-            { id: "three", sudoku: [ { value: "", sid: "three-1"}, { value: "6", sid: "three-2"}, { value: "7", sid: "three-3"}, { value: "9", sid: "three-4"}, { value: "1", sid: "three-5"}, { value: "", sid: "three-6"}, { value: "3", sid: "three-7"}, { value: "4", sid: "three-8"}, { value: "", sid: "three-9"}] },
-            { id: "four", sudoku: [ { value: "", sid: "four-1"}, { value: "7", sid: "four-2"}, { value: "9", sid: "four-3"}, { value: "5", sid: "four-4"}, { value: "", sid: "four-5"}, { value: "3", sid: "four-6"}, { value: "", sid: "four-7"}, { value: "", sid: "four-8"}, { value: "", sid: "four-9"}] },
-            { id: "five", sudoku: [ { value: "", sid: "five-1"}, { value: "1", sid: "five-2"}, { value: "", sid: "five-3"}, { value: "", sid: "five-4"}, { value: "2", sid: "five-5"}, { value: "4", sid: "five-6"}, { value: "9", sid: "five-7"}, { value: "6", sid: "five-8"}, { value: "7", sid: "five-9"}] },
-            { id: "six", sudoku: [ { value: "", sid: "six-1"}, { value: "2", sid: "six-2"}, { value: "8", sid: "six-3"}, { value: "", sid: "six-4"}, { value: "9", sid: "six-5"}, { value: "6", sid: "six-6"}, { value: "", sid: "six-7"}, { value: "5", sid: "six-8"}, { value: "3", sid: "six-9"}] },
-            { id: "seven", sudoku: [ { value: "1", sid: "seven-1"}, { value: "", sid: "seven-2"}, { value: "7", sid: "seven-3"}, { value: "", sid: "seven-4"}, { value: "", sid: "seven-5"}, { value: "6", sid: "seven-6"}, { value: "9", sid: "seven-7"}, { value: "", sid: "seven-8"}, { value: "4", sid: "seven-9"}] },
-            { id: "eight", sudoku: [ { value: "6", sid: "eight-1"}, { value: "5", sid: "eight-2"}, { value: "", sid: "eight-3"}, { value: "", sid: "eight-4"}, { value: "4", sid: "eight-5"}, { value: "", sid: "eight-6"}, { value: "2", sid: "eight-7"}, { value: 1, sid: "eight-8"}, { value: "", sid: "eight-9"}] },
-            { id: "nine", sudoku: [ { value: "", sid: "nine-1"}, { value: "", sid: "nine-2"}, { value: "4", sid: "nine-3"}, { value: "5", sid: "nine-4"}, { value: "7", sid: "nine-5"}, { value: "9", sid: "nine-6"}, { value: "6", sid: "nine-7"}, { value: "", sid: "nine-8"}, { value: "", sid: "nine-9"}] },
-          ],
-          Sid: "nineth"
-        }
-      ]
+      SUDOKU: []
     }
   },
   props: {
@@ -210,7 +83,7 @@ export default {
     },
     async getsudoku () {
       let res = await getSudoku(this.lever)
-      console.log(res)
+      this.SUDOKU = res.data
     }
   },
   created () {
@@ -333,5 +206,36 @@ export default {
 }
 #nine-9 {
   border-bottom-right-radius: 1.7vmin;
+}
+
+.grid_block {
+  &:first-child {
+    .grid_block_box {
+      &:first-child {
+        border-top-left-radius: 1.7vmin;
+      }
+    }
+  }
+  &:nth-child(3) {
+    .grid_block_box {
+      &:nth-child(3) {
+        border-top-right-radius: 1.7vmin;
+      }
+    }
+  }
+  &:nth-child(7) {
+    .grid_block_box {
+      &:nth-child(7) {
+        border-bottom-left-radius: 1.7vmin;
+      }
+    }
+  }
+  &:nth-child(9) {
+    .grid_block_box {
+      &:nth-child(9) {
+        border-bottom-right-radius: 1.7vmin;
+      }
+    }
+  }
 }
 </style>

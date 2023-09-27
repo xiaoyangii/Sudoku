@@ -5,11 +5,8 @@ import { showFullScreenLoading , tryHideFullScreenLoading } from '@/utils/loadin
 const instance = axios.create({
   baseURL: 'http://43.136.122.18:8082',
   timeout: 5000,
-  withCredentials: true,
-  crossDomain: true,
   headers: {
-    'Content-Type':'application/x-www-form-urlencoded'
-    // 'Access-Control-Allow-Origin': '*',
+    'Content-Type': 'application/json;charset=UTF-8'
   }
 })
 
@@ -27,12 +24,8 @@ instance.interceptors.request.use(function (config) {
 // 添加响应拦截器
 instance.interceptors.response.use(function (response) {
   const res = response.data
-  if (res.status !== 200) {
+  if (res.code !== 200) {
     tryHideFullScreenLoading()
-    Vue.prototype.$message({
-      message: res.message,
-      type: 'warning'
-    });
     // 抛出一个错误的promise
     return Promise.reject(res.message)
   } else {
