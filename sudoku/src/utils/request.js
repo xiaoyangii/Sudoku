@@ -3,8 +3,14 @@ import { showFullScreenLoading , tryHideFullScreenLoading } from '@/utils/loadin
 
 // 创建 axios 实例，将来对创建出来的实例，进行自定义配置
 const instance = axios.create({
-  baseURL: 'http://43.136.122.18:8082/',
-  timeout: 5000
+  baseURL: 'http://43.136.122.18:8082',
+  timeout: 5000,
+  withCredentials: true,
+  crossDomain: true,
+  headers: {
+    'Content-Type':'application/x-www-form-urlencoded'
+    // 'Access-Control-Allow-Origin': '*',
+  }
 })
 
 // 自定义配置 - 请求/响应 拦截器

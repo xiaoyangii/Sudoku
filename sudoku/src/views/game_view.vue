@@ -209,7 +209,7 @@ export default {
       }
     },
     async getsudoku () {
-      res = await getSudoku(this.lever)
+      let res = await getSudoku(this.lever)
       console.log(res)
     }
   },
