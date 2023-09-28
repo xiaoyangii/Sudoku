@@ -18,6 +18,20 @@ npm install
 npm run serve
 ```
 
+或者
+
+```
+npm install yarn  // 如果没有yarn
+```
+
+```
+yarn
+```
+
+```
+yarn serve
+```
+
 ## Project Structure
 
 ### Overall
