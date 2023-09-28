@@ -16,7 +16,7 @@
       <div class="maingrid">
         <div class="grid" v-for="(Sudoku, index) in SUDOKU" :key="index">
           <div class="grid_block" v-for="(block, index) in Sudoku" :key="index">
-            <div class="grid_block_box" v-for="(box, index) in block" :key="index">{{ box }}</div>
+            <div class="grid_block_box" v-for="(box, index) in block" :key="index">{{ box===0?"":box }}</div>
           </div>
         </div>
       </div>
@@ -195,18 +195,18 @@ export default {
     }
   }
 }
-#one-1 {
-  border-top-left-radius: 1.7vmin;
-}
-#three-3 {
-  border-top-right-radius: 1.7vmin;
-}
-#seven-7 {
-  border-bottom-left-radius: 1.7vmin;
-}
-#nine-9 {
-  border-bottom-right-radius: 1.7vmin;
-}
+// #one-1 {
+//   border-top-left-radius: 1.7vmin;
+// }
+// #three-3 {
+//   border-top-right-radius: 1.7vmin;
+// }
+// #seven-7 {
+//   border-bottom-left-radius: 1.7vmin;
+// }
+// #nine-9 {
+//   border-bottom-right-radius: 1.7vmin;
+// }
 
 .grid_block {
   &:first-child {

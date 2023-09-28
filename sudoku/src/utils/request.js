@@ -4,7 +4,7 @@ import { showFullScreenLoading , tryHideFullScreenLoading } from '@/utils/loadin
 // 创建 axios 实例，将来对创建出来的实例，进行自定义配置
 const instance = axios.create({
   baseURL: 'http://43.136.122.18:8082',
-  timeout: 5000,
+  timeout: 8000,
   headers: {
     'Content-Type': 'application/json;charset=UTF-8'
   }
