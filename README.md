@@ -11,11 +11,11 @@ jason哥最近迷上了九宫格数独，所谓九宫格数独是把一个9x9的
 `前端` **sudoku文件**
 
 ```
-yarn
+npm install
 ```
 
 ```
-yarn serve
+npm run serve
 ```
 
 ## Project Structure
