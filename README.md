@@ -25,7 +25,7 @@ npm run serve
 ```
 ├─.gitattributes
 ├─README.md
-├─sudoku_golang   // go
+├─sudoku_golang     // go
 ├─sudoku            // frontend
 └─.git
 ```
