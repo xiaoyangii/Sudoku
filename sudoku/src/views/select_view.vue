@@ -164,7 +164,6 @@ export default {
         background: #FFF;
         color: rgba(0, 0, 0, 0.70);
         text-align: center;
-        font-family: Microsoft YaHei;
         font-size: 32px;
         font-weight: 700;
         transition: all 0.3s ease 0s;

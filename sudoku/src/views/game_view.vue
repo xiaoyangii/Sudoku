@@ -1,6 +1,9 @@
 <template>
   <div class="game">
     <div class="game_header">
+      <div class="game_header_again" @click="again()" title="重新游玩！">
+        <div>重新游玩</div>
+      </div>
       <div class="game_header_return" @click="$router.go(-1)" title="返回！">
         <img src="../assets/images/return.png" alt="" title="返回！">
       </div>
@@ -36,7 +39,8 @@ export default {
   },
   data () {
     return {
-      SUDOKU: []
+      SUDOKU: [],
+      SUDOKU_copy: []
     }
   },
   props: {
@@ -84,6 +88,10 @@ export default {
     async getsudoku () {
       let res = await getSudoku(this.lever)
       this.SUDOKU = res.data
+      this.SUDOKU_copy = this.SUDOKU
+    },
+    again() {
+      this.SUDOKU = this.SUDOKU_copy
     }
   },
   created () {
@@ -101,7 +109,7 @@ export default {
     justify-content: right;
     width: 100vw;
     height: 100px;
-    &_change, &_return, &_music {
+    &_change, &_return, &_music, &_again {
       display: flex;
       margin-top: 32px;
       margin-right: 32px;
@@ -121,6 +129,17 @@ export default {
         margin: 11px auto;
         width: 40px;
         height: 40px;
+      }
+    }
+    &_again {
+      width: 150px;
+      color: #fff;
+      div {
+        display: flex;
+        justify-content: center;
+        margin: 0 auto;
+        font-weight: 700;
+        font-size: 25px;
       }
     }
     &_music {
