@@ -244,13 +244,13 @@ export default {
               this.$refs[this.idx(id1, 7, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
             }
           } else if (id3 == 1 || id3 == 4 || id3 == 7) {
-            for (let j = 0; j <= 8; j += 3) {
+            for (let j = 1; j <= 8; j += 3) {
               this.$refs[this.idx(id1, 1, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
               this.$refs[this.idx(id1, 4, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
               this.$refs[this.idx(id1, 7, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
             }
           } else if (id3 == 2 || id3 == 5 || id3 == 8) {
-            for (let j = 0; j <= 8; j += 3) {
+            for (let j = 2; j <= 8; j += 3) {
               this.$refs[this.idx(id1, 1, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
               this.$refs[this.idx(id1, 4, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
               this.$refs[this.idx(id1, 7, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
@@ -264,13 +264,13 @@ export default {
               this.$refs[this.idx(id1, 8, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
             }
           } else if (id3 == 1 || id3 == 4 || id3 == 7) {
-            for (let j = 0; j <= 8; j += 3) {
+            for (let j = 1; j <= 8; j += 3) {
               this.$refs[this.idx(id1, 2, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
               this.$refs[this.idx(id1, 5, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
               this.$refs[this.idx(id1, 8, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
             }
           } else {
-            for (let j = 0; j <= 8; j += 3) {
+            for (let j = 2; j <= 8; j += 3) {
               this.$refs[this.idx(id1, 2, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
               this.$refs[this.idx(id1, 5, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
               this.$refs[this.idx(id1, 8, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
@@ -388,13 +388,13 @@ export default {
             this.$refs[this.idx(id1, 7, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
           }
         } else if (id3 == 1 || id3 == 4 || id3 == 7) {
-          for (let j = 0; j <= 8; j += 3) {
+          for (let j = 1; j <= 8; j += 3) {
             this.$refs[this.idx(id1, 1, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
             this.$refs[this.idx(id1, 4, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
             this.$refs[this.idx(id1, 7, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
           }
         } else if (id3 == 2 || id3 == 5 || id3 == 8) {
-          for (let j = 0; j <= 8; j += 3) {
+          for (let j = 2; j <= 8; j += 3) {
             this.$refs[this.idx(id1, 1, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
             this.$refs[this.idx(id1, 4, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
             this.$refs[this.idx(id1, 7, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
@@ -408,13 +408,13 @@ export default {
             this.$refs[this.idx(id1, 8, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
           }
         } else if (id3 == 1 || id3 == 4 || id3 == 7) {
-          for (let j = 0; j <= 8; j += 3) {
+          for (let j = 1; j <= 8; j += 3) {
             this.$refs[this.idx(id1, 2, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
             this.$refs[this.idx(id1, 5, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
             this.$refs[this.idx(id1, 8, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
           }
         } else {
-          for (let j = 0; j <= 8; j += 3) {
+          for (let j = 2; j <= 8; j += 3) {
             this.$refs[this.idx(id1, 2, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
             this.$refs[this.idx(id1, 5, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
             this.$refs[this.idx(id1, 8, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
