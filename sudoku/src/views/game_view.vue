@@ -19,7 +19,7 @@
       </div>
     </div>
     <div class="game_body">
-      <div class="maingrid">
+      <div class="maingrid" :key="key">
         <div class="grid" v-for="(Sudoku, index1) in SUDOKU" :key="index1">
           <div class="grid_block" v-for="(block, index2) in Sudoku" :key="index2">
             <div class="grid_block_box" 
@@ -58,6 +58,7 @@ export default {
       SUDOKU: [],
       su_copy: [],
       isBlur: true, // 解决赋值时光标自动定位到起始位置
+      key: "",
     }
   },
   props: {
@@ -82,7 +83,7 @@ export default {
   },
   methods: {
     inputText(e, id1, id2, id3) {
-      this.SUDOKU[id1][id2][id3] = parseInt(e.target.innerText)
+      this.SUDOKU[id1][id2][id3] = e.target.innerText
       // console.log(parseInt(e.target.innerText))
       // console.log(e)
       // console.log(id1, id2, id3)
@@ -210,8 +211,8 @@ export default {
     },
     again() {
       this.SUDOKU = []
-      // this.SUDOKU = JSON.parse(JSON.stringify(this.su_copy))
-      this.$set(this, 'SUDOKU', JSON.parse(JSON.stringify(this.su_copy)))
+      this.SUDOKU = JSON.parse(JSON.stringify(this.su_copy))
+      this.key = new Date().getTime()
     },
   },
   created () {
