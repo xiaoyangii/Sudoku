@@ -1,6 +1,9 @@
 <template>
   <div class="game">
     <div class="game_header">
+      <div class="game_header_again" @click="solve()" title="一键求解！">
+        <div>一键求解</div>
+      </div>
       <div class="game_header_again" @click="again()" title="重新游玩！">
         <div>重新游玩</div>
       </div>
@@ -17,9 +20,19 @@
     </div>
     <div class="game_body">
       <div class="maingrid">
-        <div class="grid" v-for="(Sudoku, index) in SUDOKU" :key="index">
-          <div class="grid_block" v-for="(block, index) in Sudoku" :key="index">
-            <div class="grid_block_box" v-for="(box, index) in block" :key="index">{{ box===0?"":box }}</div>
+        <div class="grid" v-for="(Sudoku, index1) in SUDOKU" :key="index1">
+          <div class="grid_block" v-for="(block, index2) in Sudoku" :key="index2">
+            <div class="grid_block_box" 
+              v-for="(box, index3) in block" :key="index3"
+              ref="editor"
+              @click="isInput($event, index1, index2, index3)"
+              @input="inputText($event, index1, index2, index3)"
+              @blur="inputBlur"
+              @focus="inputFocus" 
+              contenteditable="false"
+            >
+              {{ box===0?"":box }}
+            </div>
           </div>
         </div>
       </div>
@@ -31,7 +44,7 @@
 <script>
 import Footer from '@/views/footer.vue';
 import { backgroundStyles } from '@/assets/js/style.js'
-import { getSudoku } from '@/api/getSudoku.js'
+import { getSudoku, solveSudoku } from '@/api/getSudoku.js'
 export default {
   name: 'Game',
   components: {
@@ -40,7 +53,8 @@ export default {
   data () {
     return {
       SUDOKU: [],
-      SUDOKU_copy: []
+      SUDOKU_copy: [],
+      isBlur: true, // 解决赋值时光标自动定位到起始位置
     }
   },
   props: {
@@ -64,6 +78,28 @@ export default {
     }
   },
   methods: {
+    inputText(e, id1, id2, id3) {
+      this.SUDOKU[id1][id2][id3] = parseInt(e.target.innerText)
+      // console.log(parseInt(e.target.innerText))
+      console.log(e);
+    },
+    async solve() {
+      let res = await solveSudoku(this.lever)
+    },
+    isInput(e, id1, id2, id3) {
+      console.log(e, id1, id2, id3)
+      if(e.target.innerText != "") {
+        return
+      } else {
+        e.target.contentEditable = true
+      }
+    },
+    inputFocus() {
+      this.isBlur = false;
+    },
+    inputBlur() {
+      this.isBlur = true;
+    },
     changeColor() {
       let currentIndex = backgroundStyles.indexOf(this.bgc);
       currentIndex += 1;
@@ -92,6 +128,17 @@ export default {
     },
     again() {
       this.SUDOKU = this.SUDOKU_copy
+    },
+    forbidenter(e) {
+      // 禁止用户输入回车
+      console.log(e);
+      _code = e.keyCode;
+      // if (_code == 13) {
+      //   e.returnValue = false;
+      // }
+      if((_code < 48 || _code > 57) && _code != 190 && _code != 8) {
+        e.preventDefault();
+      }
     }
   },
   created () {

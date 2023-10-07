@@ -7,3 +7,11 @@ export const getSudoku = (diffcult) => {
     }
   })
 }
+
+export const solveSudoku = (diffcult) => {
+  return request.get('', {
+    params: {
+      diffcult
+    }
+  })
+}

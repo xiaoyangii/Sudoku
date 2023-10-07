@@ -17,6 +17,7 @@ export default {
         'soundbgm2.mp3',
         'soundbgm3.mp3',
         'soundbgm4.mp3',
+        'soundbgm5.mp3',
       ]
     };
   },
