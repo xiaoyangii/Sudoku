@@ -56,7 +56,7 @@ export default {
   data () {
     return {
       SUDOKU: [],
-      SUDOKU_copy: [],
+      su_copy: [],
       isBlur: true, // 解决赋值时光标自动定位到起始位置
     }
   },
@@ -98,7 +98,8 @@ export default {
       }
     },
     async solve() {
-      let res = await solveSudoku(this.lever)
+      let res = await solveSudoku()
+      this.SUDOKU = JSON.parse(res.data)
     },
     isInput(e, id1, id2, id3) {
       if(e.target.innerText != "") {
@@ -205,22 +206,13 @@ export default {
     async getsudoku () {
       let res = await getSudoku(this.lever)
       this.SUDOKU = res.data
-      this.SUDOKU_copy = this.SUDOKU
+      this.su_copy = JSON.parse(JSON.stringify(res.data))
     },
     again() {
-      this.SUDOKU = this.SUDOKU_copy
+      this.SUDOKU = []
+      // this.SUDOKU = JSON.parse(JSON.stringify(this.su_copy))
+      this.$set(this, 'SUDOKU', JSON.parse(JSON.stringify(this.su_copy)))
     },
-    forbidenter(e) {
-      // 禁止用户输入回车
-      console.log(e);
-      _code = e.keyCode;
-      // if (_code == 13) {
-      //   e.returnValue = false;
-      // }
-      if((_code < 48 || _code > 57) && _code != 190 && _code != 8) {
-        e.preventDefault();
-      }
-    }
   },
   created () {
     this.getsudoku()
