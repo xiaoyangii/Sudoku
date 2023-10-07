@@ -28,7 +28,10 @@
               @click="isInput($event, index1, index2, index3)"
               @input="inputText($event, index1, index2, index3)"
               @blur="inputBlur"
-              @focus="inputFocus" 
+              @focus="inputFocus"
+              @mouseover="mouseover($event, index1, index2, index3)"
+              @mouseout="mouseout($event, index1, index2, index3)"
+              :style="toChangeStyle(index1, index2, index3, bgc)"
               contenteditable="false"
             >
               {{ box===0?"":box }}
@@ -81,17 +84,95 @@ export default {
     inputText(e, id1, id2, id3) {
       this.SUDOKU[id1][id2][id3] = parseInt(e.target.innerText)
       // console.log(parseInt(e.target.innerText))
-      console.log(e);
+      // console.log(e)
+      // console.log(id1, id2, id3)
+      // console.log(e.target.parentNode.children)
+      console.log(66);
+      let children = e.target.parentNode.children
+      if(this.isSudokuFull(children)) {
+        let newArr = []
+        for (let i = 0; i < 9; i++) {
+          newArr.push(parseInt(children[i].innerText))
+        }
+        this.isSudokuOk(newArr, e.target.style)
+      }
     },
     async solve() {
       let res = await solveSudoku(this.lever)
     },
     isInput(e, id1, id2, id3) {
-      console.log(e, id1, id2, id3)
       if(e.target.innerText != "") {
         return
       } else {
         e.target.contentEditable = true
+      }
+    },
+    toChangeStyle(id1, id2, id3, bgc) {
+      return {
+        backgroundColor: bgc,
+      }
+    },
+    isSudokuFull(children) {
+      // 判断九宫格是否填满
+      for (let i = 0; i < 9; i++) {
+        if(! (parseInt(children[i].innerText) > 0 && parseInt(children[i].innerText) < 10)) {
+          return false
+        }
+      }
+      return true
+    },
+    isSudokuOk(arr, style) {
+      // 判断该9宫格是否正确
+      var sum = arr.reduce((pre, cur) => {
+        return pre + cur;
+      })
+      if (sum != 45) {
+        style.backgroundColor = "rgba(255, 0, 0, 0.7)"
+        return
+      } else {
+        style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+        return
+      }
+    },
+    mouseover(e, id1, id2, id3) {
+      // console.log(e, id1, id2, id3)
+      // console.log(e.target.parentNode.children[0].style);
+      let flag = 0
+      let ind = 0
+      for (let i = 0; i < 9; i++) {
+        if (e.target.parentNode.children[i].style.backgroundColor === "rgba(255, 0, 0, 0.7)") {
+          flag = 1
+          ind = i
+        }
+      }
+      for (let i = 0; i < 9; i++) {
+        if(flag === 1) {
+          e.target.parentNode.children[i].style.backgroundColor =  "rgba(255, 255, 255, 0.7)"
+          e.target.parentNode.children[ind].style.backgroundColor = "rgba(255, 0, 0, 0.7)"
+          continue
+        }
+        e.target.parentNode.children[i].style.backgroundColor =  "rgba(255, 255, 255, 0.7)"
+      }
+      // this.SUDOKU[id1][id2].forEach(function (item, index, array) {
+      //   // item数组中的当前项, index当前项的索引, array原始数组；
+      // })
+    },
+    mouseout(e, id1, id2, id3) {
+      let flag = 0
+      let ind = 0
+      for (let i = 0; i < 9; i++) {
+        if (e.target.parentNode.children[i].style.backgroundColor === "rgba(255, 0, 0, 0.7)") {
+          flag = 1
+          ind = i
+        }
+      }
+      for (let i = 0; i < 9; i++) {
+        if(flag === 1) {
+          e.target.parentNode.children[i].style.backgroundColor =  "rgba(255, 255, 255, 0.9)"
+          e.target.parentNode.children[ind].style.backgroundColor = "rgba(255, 0, 0, 0.7)"
+          continue
+        }
+        e.target.parentNode.children[i].style.backgroundColor =  "rgba(255, 255, 255, 0.9)"
       }
     },
     inputFocus() {
