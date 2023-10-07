@@ -24,7 +24,7 @@
           <div class="grid_block" v-for="(block, index2) in Sudoku" :key="index2">
             <div class="grid_block_box" 
               v-for="(box, index3) in block" :key="index3"
-              ref="editor"
+              :ref="idx(index1, index2, index3)"
               @click="isInput($event, index1, index2, index3)"
               @input="inputText($event, index1, index2, index3)"
               @blur="inputBlur"
@@ -88,7 +88,6 @@ export default {
       // console.log(e)
       // console.log(id1, id2, id3)
       // console.log(e.target.parentNode.children)
-      console.log(66);
       let children = e.target.parentNode.children
       if(this.isSudokuFull(children)) {
         let newArr = []
@@ -155,6 +154,129 @@ export default {
         }
         e.target.parentNode.children[i].style.backgroundColor =  "rgba(255, 255, 255, 0.7)"
       }
+      if (id2 >= 0 && id2 <= 2) {
+        if (id3 >= 0 && id3 <=2) {
+          for (let i = 0; i <= 2; i++) {
+            for (let j = 0; j <= 2; j++) {
+              this.$refs[this.idx(id1, i, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+            }
+          }
+        } else if (id3 >= 3 && id3 <=5) {
+          for (let i = 0; i <= 2; i++) {
+            for (let j = 3; j <= 5; j++) {
+              this.$refs[this.idx(id1, i, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+            }
+          }
+        } else if (id3 >= 6 && id3 <=8) {
+          for (let i = 0; i <= 2; i++) {
+            for (let j = 6; j <= 8; j++) {
+              this.$refs[this.idx(id1, i, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+            }
+          }
+        }
+      } else if (id2 >= 3 && id2 <=5) {
+        if (id3 >= 0 && id3 <=2) {
+          for (let i = 3; i <= 5; i++) {
+            for (let j = 0; j <= 2; j++) {
+              this.$refs[this.idx(id1, i, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+            }
+          }
+        } else if (id3 >= 3 && id3 <=5) {
+          for (let i = 3; i <= 5; i++) {
+            for (let j = 3; j <= 5; j++) {
+              this.$refs[this.idx(id1, i, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+            }
+          }
+        } else if (id3 >= 6 && id3 <=8) {
+          for (let i = 3; i <= 5; i++) {
+            for (let j = 6; j <= 8; j++) {
+              this.$refs[this.idx(id1, i, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+            }
+          }
+        }
+      } else if (id2 >= 6 && id2 <=8) {
+        if (id3 >= 0 && id3 <=2) {
+          for (let i = 6; i <= 8; i++) {
+            for (let j = 0; j <= 2; j++) {
+              this.$refs[this.idx(id1, i, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+            }
+          }
+        } else if (id3 >= 3 && id3 <=5) {
+          for (let i = 6; i <= 8; i++) {
+            for (let j = 3; j <= 5; j++) {
+              this.$refs[this.idx(id1, i, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+            }
+          }
+        } else if (id3 >= 6 && id3 <=8) {
+          for (let i = 6; i <= 8; i++) {
+            for (let j = 6; j <= 8; j++) {
+              this.$refs[this.idx(id1, i, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+            }
+          }
+        }
+      }
+
+      if (id2 == 0 || id2 == 3 || id2 == 6) {
+          if (id3 == 0 || id3 == 3 || id3 == 6) {
+            for (let j = 0; j <= 8; j += 3) {
+              this.$refs[this.idx(id1, 0, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+              this.$refs[this.idx(id1, 3, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+              this.$refs[this.idx(id1, 6, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+            }
+          } else if (id3 == 1 || id3 == 4 || id3 == 7) {
+            for (let j = 1; j <= 8; j += 3) {
+              this.$refs[this.idx(id1, 0, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+              this.$refs[this.idx(id1, 3, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+              this.$refs[this.idx(id1, 6, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+            }
+          } else {
+            for (let j = 2; j <= 8; j += 3) {
+              this.$refs[this.idx(id1, 0, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+              this.$refs[this.idx(id1, 3, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+              this.$refs[this.idx(id1, 6, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+            }
+          }
+      } else if (id2 == 1 || id2 == 4 || id2 == 7) {
+          if (id3 == 0 || id3 == 3 || id3 == 6) {
+            for (let j = 0; j <= 8; j += 3) {
+              this.$refs[this.idx(id1, 1, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+              this.$refs[this.idx(id1, 4, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+              this.$refs[this.idx(id1, 7, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+            }
+          } else if (id3 == 1 || id3 == 4 || id3 == 7) {
+            for (let j = 0; j <= 8; j += 3) {
+              this.$refs[this.idx(id1, 1, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+              this.$refs[this.idx(id1, 4, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+              this.$refs[this.idx(id1, 7, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+            }
+          } else if (id3 == 2 || id3 == 5 || id3 == 8) {
+            for (let j = 0; j <= 8; j += 3) {
+              this.$refs[this.idx(id1, 1, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+              this.$refs[this.idx(id1, 4, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+              this.$refs[this.idx(id1, 7, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+            }
+          }
+      } else {
+          if (id3 == 0 || id3 == 3 || id3 == 6) {
+            for (let j = 0; j <= 8; j += 3) {
+              this.$refs[this.idx(id1, 2, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+              this.$refs[this.idx(id1, 5, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+              this.$refs[this.idx(id1, 8, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+            }
+          } else if (id3 == 1 || id3 == 4 || id3 == 7) {
+            for (let j = 0; j <= 8; j += 3) {
+              this.$refs[this.idx(id1, 2, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+              this.$refs[this.idx(id1, 5, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+              this.$refs[this.idx(id1, 8, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+            }
+          } else {
+            for (let j = 0; j <= 8; j += 3) {
+              this.$refs[this.idx(id1, 2, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+              this.$refs[this.idx(id1, 5, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+              this.$refs[this.idx(id1, 8, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+            }
+          }
+      }
       // this.SUDOKU[id1][id2].forEach(function (item, index, array) {
       //   // item数组中的当前项, index当前项的索引, array原始数组；
       // })
@@ -175,6 +297,129 @@ export default {
           continue
         }
         e.target.parentNode.children[i].style.backgroundColor =  "rgba(255, 255, 255, 0.9)"
+      }
+      if (id2 >= 0 && id2 <=2) {
+          if (id3 >= 0 && id3 <=2) {
+            for (let i = 0; i <= 2; i++) {
+              for (let j = 0; j <= 2; j++) {
+                this.$refs[this.idx(id1, i, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              }
+            }
+          } else if (id3 >= 3 && id3 <=5) {
+            for (let i = 0; i <= 2; i++) {
+              for (let j = 3; j <= 5; j++) {
+                this.$refs[this.idx(id1, i, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              }
+            }
+          } else if (id3 >= 6 && id3 <=8) {
+            for (let i = 0; i <= 2; i++) {
+              for (let j = 6; j <= 8; j++) {
+                this.$refs[this.idx(id1, i, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              }
+            }
+          }
+      } else if (id2 >= 3 && id2 <=5) {
+        if (id3 >= 0 && id3 <=2) {
+            for (let i = 3; i <= 5; i++) {
+              for (let j = 0; j <= 2; j++) {
+                this.$refs[this.idx(id1, i, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              }
+            }
+          } else if (id3 >= 3 && id3 <=5) {
+            for (let i = 3; i <= 5; i++) {
+              for (let j = 3; j <= 5; j++) {
+                this.$refs[this.idx(id1, i, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              }
+            }
+          } else if (id3 >= 6 && id3 <=8) {
+            for (let i = 3; i <= 5; i++) {
+              for (let j = 6; j <= 8; j++) {
+                this.$refs[this.idx(id1, i, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              }
+            }
+          }
+      } else if (id2 >= 6 && id2 <=8) {
+        if (id3 >= 0 && id3 <=2) {
+            for (let i = 6; i <= 8; i++) {
+              for (let j = 0; j <= 2; j++) {
+                this.$refs[this.idx(id1, i, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              }
+            }
+          } else if (id3 >= 3 && id3 <=5) {
+            for (let i = 6; i <= 8; i++) {
+              for (let j = 3; j <= 5; j++) {
+                this.$refs[this.idx(id1, i, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              }
+            }
+          } else if (id3 >= 6 && id3 <=8) {
+            for (let i = 6; i <= 8; i++) {
+              for (let j = 6; j <= 8; j++) {
+                this.$refs[this.idx(id1, i, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              }
+            }
+          }
+      }
+
+      if (id2 == 0 || id2 == 3 || id2 == 6) {
+        if (id3 == 0 || id3 == 3 || id3 == 6) {
+          for (let j = 0; j <= 8; j += 3) {
+            this.$refs[this.idx(id1, 0, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+            this.$refs[this.idx(id1, 3, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+            this.$refs[this.idx(id1, 6, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+          }
+        } else if (id3 == 1 || id3 == 4 || id3 == 7) {
+          for (let j = 1; j <= 8; j += 3) {
+            this.$refs[this.idx(id1, 0, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+            this.$refs[this.idx(id1, 3, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+            this.$refs[this.idx(id1, 6, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+          }
+        } else {
+          for (let j = 2; j <= 8; j += 3) {
+            this.$refs[this.idx(id1, 0, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+            this.$refs[this.idx(id1, 3, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+            this.$refs[this.idx(id1, 6, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+          }
+        }
+      } else if (id2 == 1 || id2 == 4 || id2 == 7) {
+        if (id3 == 0 || id3 == 3 || id3 == 6) {
+          for (let j = 0; j <= 8; j += 3) {
+            this.$refs[this.idx(id1, 1, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+            this.$refs[this.idx(id1, 4, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+            this.$refs[this.idx(id1, 7, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+          }
+        } else if (id3 == 1 || id3 == 4 || id3 == 7) {
+          for (let j = 0; j <= 8; j += 3) {
+            this.$refs[this.idx(id1, 1, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+            this.$refs[this.idx(id1, 4, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+            this.$refs[this.idx(id1, 7, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+          }
+        } else if (id3 == 2 || id3 == 5 || id3 == 8) {
+          for (let j = 0; j <= 8; j += 3) {
+            this.$refs[this.idx(id1, 1, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+            this.$refs[this.idx(id1, 4, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+            this.$refs[this.idx(id1, 7, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+          }
+        }
+      } else {
+        if (id3 == 0 || id3 == 3 || id3 == 6) {
+          for (let j = 0; j <= 8; j += 3) {
+            this.$refs[this.idx(id1, 2, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+            this.$refs[this.idx(id1, 5, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+            this.$refs[this.idx(id1, 8, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+          }
+        } else if (id3 == 1 || id3 == 4 || id3 == 7) {
+          for (let j = 0; j <= 8; j += 3) {
+            this.$refs[this.idx(id1, 2, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+            this.$refs[this.idx(id1, 5, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+            this.$refs[this.idx(id1, 8, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+          }
+        } else {
+          for (let j = 0; j <= 8; j += 3) {
+            this.$refs[this.idx(id1, 2, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+            this.$refs[this.idx(id1, 5, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+            this.$refs[this.idx(id1, 8, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+          }
+        }
       }
     },
     inputFocus() {
@@ -203,6 +448,9 @@ export default {
         this.$emit('music', false);
         audio.style.display = "block";
       }
+    },
+    idx(id1, id2, id3) {
+      return id1+ "-" + id2 + "-" + id3
     },
     async getsudoku () {
       let res = await getSudoku(this.lever)
