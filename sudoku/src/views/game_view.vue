@@ -127,12 +127,84 @@ export default {
       } else {
         this.$refs[this.idx(id1, ind2, ind3)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
       }
-      
+      console.log(this.ColtoArray(id1, id2, id3))
     },
     async solve() {
       let res = await solveSudoku()
+      let data = JSON.parse(res.data)
+      console.log(data)
+      let arr = []
+      let arr1 = []
+      let arr2 = []
+      for (let i = 0; i < 9; i++) { // 处理九个数独
+        for(let j = 0; j < 3; j++) { // 处理1个数独的1个九宫格
+          for(let k = 0; k < 3; k++) {
+            arr2.push(data[i][j][k])
+          }
+        }
+        arr1.push(arr2)
+        arr2 = []
+        for(let j = 0; j < 3; j++) { // 处理1个数独的1个九宫格
+          for(let k = 3; k < 6; k++) {
+            arr2.push(data[i][j][k])
+          }
+        }
+        arr1.push(arr2)
+        arr2 = []
+        for(let j = 0; j < 3; j++) { // 处理1个数独的1个九宫格
+          for(let k = 6; k < 9; k++) {
+            arr2.push(data[i][j][k])
+          }
+        }
+        arr1.push(arr2)
+        arr2 = []
+        for(let j = 3; j < 6; j++) { // 处理1个数独的1个九宫格
+          for(let k = 0; k < 3; k++) {
+            arr2.push(data[i][j][k])
+          }
+        }
+        arr1.push(arr2)
+        arr2 = []
+        for(let j = 3; j < 6; j++) { // 处理1个数独的1个九宫格
+          for(let k = 3; k < 6; k++) {
+            arr2.push(data[i][j][k])
+          }
+        }
+        arr1.push(arr2)
+        arr2 = []
+        for(let j = 3; j < 6; j++) { // 处理1个数独的1个九宫格
+          for(let k = 6; k < 9; k++) {
+            arr2.push(data[i][j][k])
+          }
+        }
+        arr1.push(arr2)
+        arr2 = []
+        for(let j = 6; j < 9; j++) { // 处理1个数独的1个九宫格
+          for(let k = 0; k < 3; k++) {
+            arr2.push(data[i][j][k])
+          }
+        }
+        arr1.push(arr2)
+        arr2 = []
+        for(let j = 6; j < 9; j++) { // 处理1个数独的1个九宫格
+          for(let k = 3; k < 6; k++) {
+            arr2.push(data[i][j][k])
+          }
+        }
+        arr1.push(arr2)
+        arr2 = []
+        for(let j = 6; j < 9; j++) { // 处理1个数独的1个九宫格
+          for(let k = 6; k < 9; k++) {
+            arr2.push(data[i][j][k])
+          }
+        }
+        arr1.push(arr2)
+        arr2 = []
+        arr.push(arr1)
+        arr1 = []
+      }
       this.again()
-      this.SUDOKU = JSON.parse(res.data)
+      this.SUDOKU = arr
     },
     isInput(e, id1, id2, id3) {
       if(e.target.innerText != "") {
@@ -228,6 +300,58 @@ export default {
       }
       for (let i = a; i < a + 3; i++) {
         for (let j = b; j < b+3; j++) {
+          if (this.$refs[this.idx(id1, i, j)][0].innerText == "") {
+            arr.push(0)
+          } else {
+            arr.push(parseInt(this.$refs[this.idx(id1, i, j)][0].innerText))
+          }
+        }
+      }
+      return arr
+    },
+    isColRepeat(id1, id2, id3) {
+      let arr = this.ColtoArray(id1, id2, id3)
+      let number = parseInt(this.$refs[this.idx(id1, id2, id3)][0].innerText)
+      let index = arr.indexOf(number)
+      let cmp = 0
+      if(id3 == 0 || id3 == 3 || id3 == 6) {
+        cmp = id3%3
+      } else if(id3 == 1 || id3 == 4 || id3 == 7) {
+        cmp = id3%3 + 3
+      } else {
+        cmp = id3%3 + 6
+      }
+      console.log(cmp)
+      if(id3 == cmp) {
+        arr[index] = 0
+        index = arr.indexOf(number)
+      }
+      if(index == -1){
+        return -1
+      } else {
+        return index
+      }
+    },
+    ColtoArray(id1, id2, id3) {
+      let arr = []
+      let a = 0
+      let b = 0
+      if(id2 == 0 || id2 == 3 || id2 == 6) {
+        a = 0
+      } else if(id2 == 1 || id2 == 4 || id2 == 7) {
+        a = 1
+      } else {
+        a = 2
+      }
+      if(id3 == 0 || id3 == 3 || id3 == 6) {
+        b = 0
+      } else if(id3 == 1 || id3 == 4 || id3 == 7) {
+        b = 1
+      } else {
+        b = 2
+      }
+      for (let i = a; i < 9; i += 3) {
+        for (let j = b; j < 9; j += 3) {
           if (this.$refs[this.idx(id1, i, j)][0].innerText == "") {
             arr.push(0)
           } else {
@@ -847,8 +971,79 @@ export default {
     },
     async getsudoku () {
       let res = await getSudoku(this.lever)
-      this.SUDOKU = res.data
-      this.su_copy = JSON.parse(JSON.stringify(res.data))
+      let data = res.data
+      let arr = []
+      let arr1 = []
+      let arr2 = []
+      for (let i = 0; i < 9; i++) { // 处理九个数独
+        for(let j = 0; j < 3; j++) { // 处理1个数独的1个九宫格
+          for(let k = 0; k < 3; k++) {
+            arr2.push(data[i][j][k])
+          }
+        }
+        arr1.push(arr2)
+        arr2 = []
+        for(let j = 0; j < 3; j++) { // 处理1个数独的1个九宫格
+          for(let k = 3; k < 6; k++) {
+            arr2.push(data[i][j][k])
+          }
+        }
+        arr1.push(arr2)
+        arr2 = []
+        for(let j = 0; j < 3; j++) { // 处理1个数独的1个九宫格
+          for(let k = 6; k < 9; k++) {
+            arr2.push(data[i][j][k])
+          }
+        }
+        arr1.push(arr2)
+        arr2 = []
+        for(let j = 3; j < 6; j++) { // 处理1个数独的1个九宫格
+          for(let k = 0; k < 3; k++) {
+            arr2.push(data[i][j][k])
+          }
+        }
+        arr1.push(arr2)
+        arr2 = []
+        for(let j = 3; j < 6; j++) { // 处理1个数独的1个九宫格
+          for(let k = 3; k < 6; k++) {
+            arr2.push(data[i][j][k])
+          }
+        }
+        arr1.push(arr2)
+        arr2 = []
+        for(let j = 3; j < 6; j++) { // 处理1个数独的1个九宫格
+          for(let k = 6; k < 9; k++) {
+            arr2.push(data[i][j][k])
+          }
+        }
+        arr1.push(arr2)
+        arr2 = []
+        for(let j = 6; j < 9; j++) { // 处理1个数独的1个九宫格
+          for(let k = 0; k < 3; k++) {
+            arr2.push(data[i][j][k])
+          }
+        }
+        arr1.push(arr2)
+        arr2 = []
+        for(let j = 6; j < 9; j++) { // 处理1个数独的1个九宫格
+          for(let k = 3; k < 6; k++) {
+            arr2.push(data[i][j][k])
+          }
+        }
+        arr1.push(arr2)
+        arr2 = []
+        for(let j = 6; j < 9; j++) { // 处理1个数独的1个九宫格
+          for(let k = 6; k < 9; k++) {
+            arr2.push(data[i][j][k])
+          }
+        }
+        arr1.push(arr2)
+        arr2 = []
+        arr.push(arr1)
+        arr1 = []
+      }
+      this.SUDOKU = arr
+      this.su_copy = JSON.parse(JSON.stringify(arr))
       this.su_copy1 = JSON.parse(JSON.stringify(this.su_copy))
     },
     again() {
