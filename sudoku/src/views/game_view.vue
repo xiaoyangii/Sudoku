@@ -56,6 +56,7 @@ export default {
     return {
       SUDOKU: [],
       su_copy: [],
+      su_copy1: [],
       isBlur: true, // 解决赋值时光标自动定位到起始位置
       key: "",
     }
@@ -87,10 +88,6 @@ export default {
   methods: {
     inputText(e, id1, id2, id3) {
       this.SUDOKU[id1][id2][id3] = e.target.innerText
-      // console.log(parseInt(e.target.innerText))
-      // console.log(e)
-      // console.log(id1, id2, id3)
-      // console.log(e.target.parentNode.children)
       let children = e.target.parentNode.children
       if(this.isSudokuFull(children)) {
         let newArr = []
@@ -102,13 +99,39 @@ export default {
         let index = this.isRepeatNumber(e, id1, id2, id3)
         if(index != -1) {
           e.target.style.backgroundColor = "rgba(255, 0, 0, 0.7)"
+          console.log("sudoku_repeat")
         } else {
           e.target.style.backgroundColor = "rgba(255, 255, 255, 0.9)"
         }
       }
+      let ind = this.isRowRepeat(id1, id2, id3)
+      var ind2 = 0
+      var ind3 = 0
+      if(ind != -1) {
+        if(id2 >= 0 && id2 <= 2) {
+          ind2 = parseInt(ind/3)
+        } else if(id2 >= 3 && id2 <= 5) {
+          ind2 = parseInt(ind/3) + 3
+        } else {
+          ind2 = parseInt(ind/3) + 6
+        }
+        if(id3 >= 0 && id3 <= 2) {
+          ind3 = ind%3
+        } else if(id3 >= 3 && id3 <= 5) {
+          ind3 = ind%3 + 3
+        } else {
+          ind3 = ind%3 + 6
+        }
+        console.log(ind, "row_repeat");
+        this.$refs[this.idx(id1, ind2, ind3)][0].style.backgroundColor = "rgba(255, 0, 0, 0.7)"
+      } else {
+        this.$refs[this.idx(id1, ind2, ind3)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+      }
+      
     },
     async solve() {
       let res = await solveSudoku()
+      this.again()
       this.SUDOKU = JSON.parse(res.data)
     },
     isInput(e, id1, id2, id3) {
@@ -162,6 +185,54 @@ export default {
           arr.push(0)
         } else {
           arr.push(parseInt(this.$refs[this.idx(id1, id2, i)][0].innerText))
+        }
+      }
+      return arr
+    },
+    isRowRepeat(id1, id2, id3) {
+      let arr = this.RowtoArray(id1, id2, id3)
+      let number = parseInt(this.$refs[this.idx(id1, id2, id3)][0].innerText)
+      let index = arr.indexOf(number)
+      let cmp = 0
+      if(id3 >= 0 && id3 <= 2) {
+        cmp = id3%3
+      } else if(id3 >= 3 && id3 <= 5) {
+        cmp = id3%3 + 3
+      } else {
+        cmp = id3%3 + 6
+      }
+      console.log(cmp)
+      if(id3 == cmp) {
+        arr[index] = 0
+        index = arr.indexOf(number)
+      }
+      if(index == -1){
+        return -1
+      } else {
+        return index
+      }
+    },
+    RowtoArray(id1, id2, id3) {
+      let arr = []
+      let a = 6
+      let b = 6
+      if(id2 >= 0 && id2 <=2) {
+        a = 0
+      } else if(id2 >= 3 && id2 <= 5) {
+        a = 3
+      }
+      if(id3 >= 0 && id3 <=2) {
+        b = 0
+      } else if(id3 >= 3 && id3 <= 5) {
+        b = 3
+      }
+      for (let i = a; i < a + 3; i++) {
+        for (let j = b; j < b+3; j++) {
+          if (this.$refs[this.idx(id1, i, j)][0].innerText == "") {
+            arr.push(0)
+          } else {
+            arr.push(parseInt(this.$refs[this.idx(id1, i, j)][0].innerText))
+          }
         }
       }
       return arr
@@ -778,6 +849,7 @@ export default {
       let res = await getSudoku(this.lever)
       this.SUDOKU = res.data
       this.su_copy = JSON.parse(JSON.stringify(res.data))
+      this.su_copy1 = JSON.parse(JSON.stringify(this.su_copy))
     },
     again() {
       this.SUDOKU = []
