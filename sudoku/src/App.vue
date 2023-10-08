@@ -11,7 +11,7 @@
 export default {
   data() {
     return {
-      backgroundColor: '',
+      backgroundColor: 'linear-gradient(180deg, #CA6ECE 0%, #232361 100%)',
       playlist: [
         'soundbgm1.mp3',
         'soundbgm2.mp3',

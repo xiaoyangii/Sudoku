@@ -31,7 +31,6 @@
               @focus="inputFocus"
               @mouseover="mouseover($event, index1, index2, index3)"
               @mouseout="mouseout($event, index1, index2, index3)"
-              :style="toChangeStyle(index1, index2, index3, bgc)"
               contenteditable="false"
             >
               {{ box===0?"":box }}
@@ -79,6 +78,10 @@ export default {
     },
     lever () {
       return this.$route.params.lever
+    },
+    bgcolor() {
+      let idx = this.bgc.indexOf('#')
+      return this.bgc.slice(idx, idx + 7)
     }
   },
   methods: {
@@ -106,11 +109,7 @@ export default {
         return
       } else {
         e.target.contentEditable = true
-      }
-    },
-    toChangeStyle(id1, id2, id3, bgc) {
-      return {
-        backgroundColor: bgc,
+        e.target.style.color = this.bgcolor
       }
     },
     isSudokuFull(children) {
