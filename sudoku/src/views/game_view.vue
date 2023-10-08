@@ -82,7 +82,7 @@ export default {
     bgcolor() {
       let idx = this.bgc.indexOf('#')
       return this.bgc.slice(idx, idx + 7)
-    }
+    },
   },
   methods: {
     inputText(e, id1, id2, id3) {
@@ -98,6 +98,13 @@ export default {
           newArr.push(parseInt(children[i].innerText))
         }
         this.isSudokuOk(newArr, e.target.style)
+      } else {
+        let index = this.isRepeatNumber(e, id1, id2, id3)
+        if(index != -1) {
+          e.target.style.backgroundColor = "rgba(255, 0, 0, 0.7)"
+        } else {
+          e.target.style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+        }
       }
     },
     async solve() {
@@ -134,6 +141,34 @@ export default {
         return
       }
     },
+    isRepeatNumber(e, id1, id2, id3) {
+      let number = parseInt(e.target.innerText)
+      let arr = this.SudokutoArray(id1, id2)
+      let index = arr.indexOf(number)
+      if(index == id3) {
+        arr[index] = 0
+        index = arr.indexOf(number)
+      }
+      if(index == -1){
+        return -1
+      } else {
+        return index
+      }
+    },
+    SudokutoArray(id1, id2) {
+      let arr = []
+      for (let i = 0; i < 9; i++) {
+        if (this.$refs[this.idx(id1, id2, i)][0].innerText == "") {
+          arr.push(0)
+        } else {
+          arr.push(parseInt(this.$refs[this.idx(id1, id2, i)][0].innerText))
+        }
+      }
+      return arr
+    },
+    isError(id1, id2, id3) {
+      return this.$refs[this.idx(id1, id2, id3)][0].style.backgroundColor === "rgba(255, 0, 0, 0.7)"
+    },
     mouseover(e, id1, id2, id3) {
       // console.log(e, id1, id2, id3)
       // console.log(e.target.parentNode.children[0].style);
@@ -154,61 +189,88 @@ export default {
         e.target.parentNode.children[i].style.backgroundColor =  "rgba(255, 255, 255, 0.7)"
       }
       if (id2 >= 0 && id2 <= 2) {
-        if (id3 >= 0 && id3 <=2) {
+        if (id3 >= 0 && id3 <= 2) {
           for (let i = 0; i <= 2; i++) {
             for (let j = 0; j <= 2; j++) {
+              if(this.isError(id1, i, j)) {
+                continue
+              }
               this.$refs[this.idx(id1, i, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
             }
           }
-        } else if (id3 >= 3 && id3 <=5) {
+        } else if (id3 >= 3 && id3 <= 5) {
           for (let i = 0; i <= 2; i++) {
             for (let j = 3; j <= 5; j++) {
+              if(this.isError(id1, i, j)) {
+                continue
+              }
               this.$refs[this.idx(id1, i, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
             }
           }
         } else if (id3 >= 6 && id3 <=8) {
           for (let i = 0; i <= 2; i++) {
             for (let j = 6; j <= 8; j++) {
+              if(this.isError(id1, i, j)) {
+                continue
+              }
               this.$refs[this.idx(id1, i, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
             }
           }
         }
-      } else if (id2 >= 3 && id2 <=5) {
+      } else if (id2 >= 3 && id2 <= 5) {
         if (id3 >= 0 && id3 <=2) {
           for (let i = 3; i <= 5; i++) {
             for (let j = 0; j <= 2; j++) {
+              if(this.isError(id1, i, j)) {
+                continue
+              }
               this.$refs[this.idx(id1, i, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
             }
           }
-        } else if (id3 >= 3 && id3 <=5) {
+        } else if (id3 >= 3 && id3 <= 5) {
           for (let i = 3; i <= 5; i++) {
             for (let j = 3; j <= 5; j++) {
+              if(this.isError(id1, i, j)) {
+                continue
+              }
               this.$refs[this.idx(id1, i, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
             }
           }
-        } else if (id3 >= 6 && id3 <=8) {
+        } else if (id3 >= 6 && id3 <= 8) {
           for (let i = 3; i <= 5; i++) {
             for (let j = 6; j <= 8; j++) {
+              if(this.isError(id1, i, j)) {
+                continue
+              }
               this.$refs[this.idx(id1, i, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
             }
           }
         }
-      } else if (id2 >= 6 && id2 <=8) {
+      } else if (id2 >= 6 && id2 <= 8) {
         if (id3 >= 0 && id3 <=2) {
           for (let i = 6; i <= 8; i++) {
             for (let j = 0; j <= 2; j++) {
+              if(this.isError(id1, i, j)) {
+                continue
+              }
               this.$refs[this.idx(id1, i, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
             }
           }
-        } else if (id3 >= 3 && id3 <=5) {
+        } else if (id3 >= 3 && id3 <= 5) {
           for (let i = 6; i <= 8; i++) {
             for (let j = 3; j <= 5; j++) {
+              if(this.isError(id1, i, j)) {
+                continue
+              }
               this.$refs[this.idx(id1, i, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
             }
           }
-        } else if (id3 >= 6 && id3 <=8) {
+        } else if (id3 >= 6 && id3 <= 8) {
           for (let i = 6; i <= 8; i++) {
             for (let j = 6; j <= 8; j++) {
+              if(this.isError(id1, i, j)) {
+                continue
+              }
               this.$refs[this.idx(id1, i, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
             }
           }
@@ -218,18 +280,57 @@ export default {
       if (id2 == 0 || id2 == 3 || id2 == 6) {
           if (id3 == 0 || id3 == 3 || id3 == 6) {
             for (let j = 0; j <= 8; j += 3) {
+              if(this.isError(id1, 0, j)) {
+                this.$refs[this.idx(id1, 3, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+                this.$refs[this.idx(id1, 6, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+                continue
+              } else if(this.isError(id1, 3, j)) {
+                this.$refs[this.idx(id1, 0, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+                this.$refs[this.idx(id1, 6, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+                continue
+              } else if(this.isError(id1, 6, j)) {
+                this.$refs[this.idx(id1, 3, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+                this.$refs[this.idx(id1, 0, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+                continue
+              }
               this.$refs[this.idx(id1, 0, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
               this.$refs[this.idx(id1, 3, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
               this.$refs[this.idx(id1, 6, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
             }
           } else if (id3 == 1 || id3 == 4 || id3 == 7) {
             for (let j = 1; j <= 8; j += 3) {
+              if(this.isError(id1, 0, j)) {
+                this.$refs[this.idx(id1, 3, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+                this.$refs[this.idx(id1, 6, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+                continue
+              } else if(this.isError(id1, 3, j)) {
+                this.$refs[this.idx(id1, 0, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+                this.$refs[this.idx(id1, 6, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+                continue
+              } else if(this.isError(id1, 6, j)) {
+                this.$refs[this.idx(id1, 3, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+                this.$refs[this.idx(id1, 0, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+                continue
+              }
               this.$refs[this.idx(id1, 0, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
               this.$refs[this.idx(id1, 3, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
               this.$refs[this.idx(id1, 6, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
             }
           } else {
             for (let j = 2; j <= 8; j += 3) {
+              if(this.isError(id1, 0, j)) {
+                this.$refs[this.idx(id1, 3, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+                this.$refs[this.idx(id1, 6, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+                continue
+              } else if(this.isError(id1, 3, j)) {
+                this.$refs[this.idx(id1, 0, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+                this.$refs[this.idx(id1, 6, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+                continue
+              } else if(this.isError(id1, 6, j)) {
+                this.$refs[this.idx(id1, 3, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+                this.$refs[this.idx(id1, 0, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+                continue
+              }
               this.$refs[this.idx(id1, 0, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
               this.$refs[this.idx(id1, 3, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
               this.$refs[this.idx(id1, 6, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
@@ -238,18 +339,57 @@ export default {
       } else if (id2 == 1 || id2 == 4 || id2 == 7) {
           if (id3 == 0 || id3 == 3 || id3 == 6) {
             for (let j = 0; j <= 8; j += 3) {
+              if(this.isError(id1, 1, j)) {
+                this.$refs[this.idx(id1, 4, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+                this.$refs[this.idx(id1, 7, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+                continue
+              } else if(this.isError(id1, 4, j)) {
+                this.$refs[this.idx(id1, 1, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+                this.$refs[this.idx(id1, 7, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+                continue
+              } else if(this.isError(id1, 7, j)) {
+                this.$refs[this.idx(id1, 1, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+                this.$refs[this.idx(id1, 4, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+                continue
+              }
               this.$refs[this.idx(id1, 1, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
               this.$refs[this.idx(id1, 4, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
               this.$refs[this.idx(id1, 7, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
             }
           } else if (id3 == 1 || id3 == 4 || id3 == 7) {
             for (let j = 1; j <= 8; j += 3) {
+              if(this.isError(id1, 1, j)) {
+                this.$refs[this.idx(id1, 4, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+                this.$refs[this.idx(id1, 7, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+                continue
+              } else if(this.isError(id1, 4, j)) {
+                this.$refs[this.idx(id1, 1, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+                this.$refs[this.idx(id1, 7, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+                continue
+              } else if(this.isError(id1, 7, j)) {
+                this.$refs[this.idx(id1, 1, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+                this.$refs[this.idx(id1, 4, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+                continue
+              }
               this.$refs[this.idx(id1, 1, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
               this.$refs[this.idx(id1, 4, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
               this.$refs[this.idx(id1, 7, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
             }
           } else if (id3 == 2 || id3 == 5 || id3 == 8) {
             for (let j = 2; j <= 8; j += 3) {
+              if(this.isError(id1, 1, j)) {
+                this.$refs[this.idx(id1, 4, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+                this.$refs[this.idx(id1, 7, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+                continue
+              } else if(this.isError(id1, 4, j)) {
+                this.$refs[this.idx(id1, 1, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+                this.$refs[this.idx(id1, 7, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+                continue
+              } else if(this.isError(id1, 7, j)) {
+                this.$refs[this.idx(id1, 1, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+                this.$refs[this.idx(id1, 4, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+                continue
+              }
               this.$refs[this.idx(id1, 1, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
               this.$refs[this.idx(id1, 4, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
               this.$refs[this.idx(id1, 7, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
@@ -258,18 +398,57 @@ export default {
       } else {
           if (id3 == 0 || id3 == 3 || id3 == 6) {
             for (let j = 0; j <= 8; j += 3) {
+              if(this.isError(id1, 2, j)) {
+                this.$refs[this.idx(id1, 5, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+                this.$refs[this.idx(id1, 8, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+                continue
+              } else if(this.isError(id1, 5, j)) {
+                this.$refs[this.idx(id1, 2, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+                this.$refs[this.idx(id1, 8, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+                continue
+              } else if(this.isError(id1, 8, j)) {
+                this.$refs[this.idx(id1, 2, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+                this.$refs[this.idx(id1, 5, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+                continue
+              }
               this.$refs[this.idx(id1, 2, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
               this.$refs[this.idx(id1, 5, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
               this.$refs[this.idx(id1, 8, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
             }
           } else if (id3 == 1 || id3 == 4 || id3 == 7) {
             for (let j = 1; j <= 8; j += 3) {
+              if(this.isError(id1, 2, j)) {
+                this.$refs[this.idx(id1, 5, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+                this.$refs[this.idx(id1, 8, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+                continue
+              } else if(this.isError(id1, 5, j)) {
+                this.$refs[this.idx(id1, 2, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+                this.$refs[this.idx(id1, 8, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+                continue
+              } else if(this.isError(id1, 8, j)) {
+                this.$refs[this.idx(id1, 2, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+                this.$refs[this.idx(id1, 5, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+                continue
+              }
               this.$refs[this.idx(id1, 2, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
               this.$refs[this.idx(id1, 5, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
               this.$refs[this.idx(id1, 8, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
             }
           } else {
             for (let j = 2; j <= 8; j += 3) {
+              if(this.isError(id1, 2, j)) {
+                this.$refs[this.idx(id1, 5, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+                this.$refs[this.idx(id1, 8, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+                continue
+              } else if(this.isError(id1, 5, j)) {
+                this.$refs[this.idx(id1, 2, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+                this.$refs[this.idx(id1, 8, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+                continue
+              } else if(this.isError(id1, 8, j)) {
+                this.$refs[this.idx(id1, 2, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+                this.$refs[this.idx(id1, 5, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
+                continue
+              }
               this.$refs[this.idx(id1, 2, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
               this.$refs[this.idx(id1, 5, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
               this.$refs[this.idx(id1, 8, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.7)"
@@ -301,18 +480,27 @@ export default {
           if (id3 >= 0 && id3 <=2) {
             for (let i = 0; i <= 2; i++) {
               for (let j = 0; j <= 2; j++) {
+                if(this.isError(id1, i, j)) {
+                  continue
+                }
                 this.$refs[this.idx(id1, i, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
               }
             }
           } else if (id3 >= 3 && id3 <=5) {
             for (let i = 0; i <= 2; i++) {
               for (let j = 3; j <= 5; j++) {
+                if(this.isError(id1, i, j)) {
+                  continue
+                }
                 this.$refs[this.idx(id1, i, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
               }
             }
           } else if (id3 >= 6 && id3 <=8) {
             for (let i = 0; i <= 2; i++) {
               for (let j = 6; j <= 8; j++) {
+                if(this.isError(id1, i, j)) {
+                  continue
+                }
                 this.$refs[this.idx(id1, i, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
               }
             }
@@ -321,18 +509,27 @@ export default {
         if (id3 >= 0 && id3 <=2) {
             for (let i = 3; i <= 5; i++) {
               for (let j = 0; j <= 2; j++) {
+                if(this.isError(id1, i, j)) {
+                  continue
+                }
                 this.$refs[this.idx(id1, i, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
               }
             }
           } else if (id3 >= 3 && id3 <=5) {
             for (let i = 3; i <= 5; i++) {
               for (let j = 3; j <= 5; j++) {
+                if(this.isError(id1, i, j)) {
+                  continue
+                }
                 this.$refs[this.idx(id1, i, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
               }
             }
           } else if (id3 >= 6 && id3 <=8) {
             for (let i = 3; i <= 5; i++) {
               for (let j = 6; j <= 8; j++) {
+                if(this.isError(id1, i, j)) {
+                  continue
+                }
                 this.$refs[this.idx(id1, i, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
               }
             }
@@ -341,18 +538,27 @@ export default {
         if (id3 >= 0 && id3 <=2) {
             for (let i = 6; i <= 8; i++) {
               for (let j = 0; j <= 2; j++) {
+                if(this.isError(id1, i, j)) {
+                  continue
+                }
                 this.$refs[this.idx(id1, i, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
               }
             }
           } else if (id3 >= 3 && id3 <=5) {
             for (let i = 6; i <= 8; i++) {
               for (let j = 3; j <= 5; j++) {
+                if(this.isError(id1, i, j)) {
+                  continue
+                }
                 this.$refs[this.idx(id1, i, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
               }
             }
           } else if (id3 >= 6 && id3 <=8) {
             for (let i = 6; i <= 8; i++) {
               for (let j = 6; j <= 8; j++) {
+                if(this.isError(id1, i, j)) {
+                  continue
+                }
                 this.$refs[this.idx(id1, i, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
               }
             }
@@ -362,18 +568,57 @@ export default {
       if (id2 == 0 || id2 == 3 || id2 == 6) {
         if (id3 == 0 || id3 == 3 || id3 == 6) {
           for (let j = 0; j <= 8; j += 3) {
+            if(this.isError(id1, 0, j)) {
+              this.$refs[this.idx(id1, 3, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              this.$refs[this.idx(id1, 6, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              continue
+            } else if(this.isError(id1, 3, j)) {
+              this.$refs[this.idx(id1, 0, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              this.$refs[this.idx(id1, 6, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              continue
+            } else if(this.isError(id1, 6, j)) {
+              this.$refs[this.idx(id1, 3, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              this.$refs[this.idx(id1, 0, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              continue
+            }
             this.$refs[this.idx(id1, 0, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
             this.$refs[this.idx(id1, 3, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
             this.$refs[this.idx(id1, 6, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
           }
         } else if (id3 == 1 || id3 == 4 || id3 == 7) {
           for (let j = 1; j <= 8; j += 3) {
+            if(this.isError(id1, 0, j)) {
+              this.$refs[this.idx(id1, 3, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              this.$refs[this.idx(id1, 6, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              continue
+            } else if(this.isError(id1, 3, j)) {
+              this.$refs[this.idx(id1, 0, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              this.$refs[this.idx(id1, 6, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              continue
+            } else if(this.isError(id1, 6, j)) {
+              this.$refs[this.idx(id1, 3, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              this.$refs[this.idx(id1, 0, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              continue
+            }
             this.$refs[this.idx(id1, 0, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
             this.$refs[this.idx(id1, 3, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
             this.$refs[this.idx(id1, 6, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
           }
         } else {
           for (let j = 2; j <= 8; j += 3) {
+            if(this.isError(id1, 0, j)) {
+              this.$refs[this.idx(id1, 3, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              this.$refs[this.idx(id1, 6, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              continue
+            } else if(this.isError(id1, 3, j)) {
+              this.$refs[this.idx(id1, 0, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              this.$refs[this.idx(id1, 6, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              continue
+            } else if(this.isError(id1, 6, j)) {
+              this.$refs[this.idx(id1, 3, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              this.$refs[this.idx(id1, 0, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              continue
+            }
             this.$refs[this.idx(id1, 0, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
             this.$refs[this.idx(id1, 3, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
             this.$refs[this.idx(id1, 6, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
@@ -382,18 +627,57 @@ export default {
       } else if (id2 == 1 || id2 == 4 || id2 == 7) {
         if (id3 == 0 || id3 == 3 || id3 == 6) {
           for (let j = 0; j <= 8; j += 3) {
+            if(this.isError(id1, 1, j)) {
+              this.$refs[this.idx(id1, 4, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              this.$refs[this.idx(id1, 7, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              continue
+            } else if(this.isError(id1, 4, j)) {
+              this.$refs[this.idx(id1, 1, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              this.$refs[this.idx(id1, 7, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              continue
+            } else if(this.isError(id1, 7, j)) {
+              this.$refs[this.idx(id1, 1, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              this.$refs[this.idx(id1, 4, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              continue
+            }
             this.$refs[this.idx(id1, 1, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
             this.$refs[this.idx(id1, 4, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
             this.$refs[this.idx(id1, 7, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
           }
         } else if (id3 == 1 || id3 == 4 || id3 == 7) {
           for (let j = 1; j <= 8; j += 3) {
+            if(this.isError(id1, 1, j)) {
+              this.$refs[this.idx(id1, 4, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              this.$refs[this.idx(id1, 7, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              continue
+            } else if(this.isError(id1, 4, j)) {
+              this.$refs[this.idx(id1, 1, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              this.$refs[this.idx(id1, 7, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              continue
+            } else if(this.isError(id1, 7, j)) {
+              this.$refs[this.idx(id1, 1, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              this.$refs[this.idx(id1, 4, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              continue
+            }
             this.$refs[this.idx(id1, 1, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
             this.$refs[this.idx(id1, 4, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
             this.$refs[this.idx(id1, 7, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
           }
         } else if (id3 == 2 || id3 == 5 || id3 == 8) {
           for (let j = 2; j <= 8; j += 3) {
+            if(this.isError(id1, 1, j)) {
+              this.$refs[this.idx(id1, 4, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              this.$refs[this.idx(id1, 7, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              continue
+            } else if(this.isError(id1, 4, j)) {
+              this.$refs[this.idx(id1, 1, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              this.$refs[this.idx(id1, 7, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              continue
+            } else if(this.isError(id1, 7, j)) {
+              this.$refs[this.idx(id1, 1, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              this.$refs[this.idx(id1, 4, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              continue
+            }
             this.$refs[this.idx(id1, 1, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
             this.$refs[this.idx(id1, 4, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
             this.$refs[this.idx(id1, 7, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
@@ -402,18 +686,57 @@ export default {
       } else {
         if (id3 == 0 || id3 == 3 || id3 == 6) {
           for (let j = 0; j <= 8; j += 3) {
+            if(this.isError(id1, 2, j)) {
+              this.$refs[this.idx(id1, 5, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              this.$refs[this.idx(id1, 8, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              continue
+            } else if(this.isError(id1, 5, j)) {
+              this.$refs[this.idx(id1, 2, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              this.$refs[this.idx(id1, 8, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              continue
+            } else if(this.isError(id1, 8, j)) {
+              this.$refs[this.idx(id1, 2, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              this.$refs[this.idx(id1, 5, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              continue
+            }
             this.$refs[this.idx(id1, 2, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
             this.$refs[this.idx(id1, 5, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
             this.$refs[this.idx(id1, 8, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
           }
         } else if (id3 == 1 || id3 == 4 || id3 == 7) {
           for (let j = 1; j <= 8; j += 3) {
+            if(this.isError(id1, 2, j)) {
+              this.$refs[this.idx(id1, 5, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              this.$refs[this.idx(id1, 8, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              continue
+            } else if(this.isError(id1, 5, j)) {
+              this.$refs[this.idx(id1, 2, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              this.$refs[this.idx(id1, 8, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              continue
+            } else if(this.isError(id1, 8, j)) {
+              this.$refs[this.idx(id1, 2, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              this.$refs[this.idx(id1, 5, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              continue
+            }
             this.$refs[this.idx(id1, 2, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
             this.$refs[this.idx(id1, 5, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
             this.$refs[this.idx(id1, 8, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
           }
         } else {
           for (let j = 2; j <= 8; j += 3) {
+            if(this.isError(id1, 2, j)) {
+              this.$refs[this.idx(id1, 5, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              this.$refs[this.idx(id1, 8, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              continue
+            } else if(this.isError(id1, 5, j)) {
+              this.$refs[this.idx(id1, 2, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              this.$refs[this.idx(id1, 8, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              continue
+            } else if(this.isError(id1, 8, j)) {
+              this.$refs[this.idx(id1, 2, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              this.$refs[this.idx(id1, 5, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+              continue
+            }
             this.$refs[this.idx(id1, 2, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
             this.$refs[this.idx(id1, 5, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
             this.$refs[this.idx(id1, 8, j)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
