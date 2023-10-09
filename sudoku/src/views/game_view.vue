@@ -135,15 +135,18 @@ export default {
       let b = [1, 4, 7]
       let c = [2, 5, 8]
       if(inde != -1) {
-        console.log(inde, "col_repeat")
         if(id2 == 0 || id2 == 3 || id2 == 6) {
           ind4 = a[parseInt(inde/3)]
-          ind5 = a[inde%3]
         } else if(id2 == 1 || id2 == 4 || id2 == 7) {
           ind4 = b[parseInt(inde/3)]
-          ind5 = b[inde%3]
         } else {
           ind4 = c[parseInt(inde/3)]
+        }
+        if(id3 == 0 || id3 == 3 || id3 == 6) {
+          ind5 = a[inde%3]
+        } else if(id3 == 1 || id3 == 4 || id3 == 7) {
+          ind5 = b[inde%3]
+        } else {
           ind5 = c[inde%3]
         }
         console.log(inde, "col_repeat");
@@ -291,16 +294,17 @@ export default {
       let index = arr.indexOf(number)
       let cmp = 0
       if(id3 >= 0 && id3 <= 2) {
-        cmp = id3%3
+        cmp = index%3
       } else if(id3 >= 3 && id3 <= 5) {
-        cmp = id3%3 + 3
+        cmp = index%3 + 3
       } else {
-        cmp = id3%3 + 6
+        cmp = index%3 + 6
       }
       console.log(cmp, "rowcmp")
       if(id3 == cmp) {
         arr[index] = 0
         index = arr.indexOf(number)
+        console.log(index, "rowindex");
       }
       if(index == -1){
         return -1
@@ -338,19 +342,19 @@ export default {
       let number = parseInt(this.$refs[this.idx(id1, id2, id3)][0].innerText)
       let index = arr.indexOf(number)
       let cmp = 0
-      let a = [0, 3, 6]
-      let b = [1, 4, 7]
-      let c = [2, 5, 8]
-      if(id3 == 0 || id3 == 3 || id3 == 6) {
-        cmp = a[parseInt(index%3)]
-      } else if(id3 == 1 || id3 == 4 || id3 == 7) {
-        cmp = b[parseInt(index%3)]
+      if(id2 == 0 || id2 == 1 || id2 == 2) {
+        cmp = id3/3
+      } else if(id2 == 3 || id2 == 4 || id2 == 5) {
+        cmp = id3/3 + 3
       } else {
-        cmp = c[parseInt(index%3)]
+        cmp = id3/3 + 6
       }
-      if(id3 == cmp) {
+      console.log(cmp, "colcmp")
+      if(index == cmp) {
         arr[index] = 0
         index = arr.indexOf(number)
+        console.log(arr)
+        console.log(index, "colindex")
       }
       if(index == -1){
         return -1
