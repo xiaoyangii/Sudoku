@@ -127,7 +127,31 @@ export default {
       } else {
         this.$refs[this.idx(id1, ind2, ind3)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
       }
-      console.log(this.ColtoArray(id1, id2, id3))
+
+      let inde = this.isColRepeat(id1, id2, id3)
+      var ind4 = 0
+      var ind5 = 0
+      let a = [0, 3, 6]
+      let b = [1, 4, 7]
+      let c = [2, 5, 8]
+      if(inde != -1) {
+        console.log(inde, "col_repeat")
+        if(id2 == 0 || id2 == 3 || id2 == 6) {
+          ind4 = a[parseInt(inde/3)]
+          ind5 = a[inde%3]
+        } else if(id2 == 1 || id2 == 4 || id2 == 7) {
+          ind4 = b[parseInt(inde/3)]
+          ind5 = b[inde%3]
+        } else {
+          ind4 = c[parseInt(inde/3)]
+          ind5 = c[inde%3]
+        }
+        console.log(inde, "col_repeat");
+        this.$refs[this.idx(id1, ind4, ind5)][0].style.backgroundColor = "rgba(255, 0, 0, 0.7)"
+      } else {
+        this.$refs[this.idx(id1, ind4, ind5)][0].style.backgroundColor = "rgba(255, 255, 255, 0.9)"
+      }
+      
     },
     async solve() {
       let res = await solveSudoku()
@@ -273,7 +297,7 @@ export default {
       } else {
         cmp = id3%3 + 6
       }
-      console.log(cmp)
+      console.log(cmp, "rowcmp")
       if(id3 == cmp) {
         arr[index] = 0
         index = arr.indexOf(number)
@@ -314,14 +338,16 @@ export default {
       let number = parseInt(this.$refs[this.idx(id1, id2, id3)][0].innerText)
       let index = arr.indexOf(number)
       let cmp = 0
+      let a = [0, 3, 6]
+      let b = [1, 4, 7]
+      let c = [2, 5, 8]
       if(id3 == 0 || id3 == 3 || id3 == 6) {
-        cmp = id3%3
+        cmp = a[parseInt(index%3)]
       } else if(id3 == 1 || id3 == 4 || id3 == 7) {
-        cmp = id3%3 + 3
+        cmp = b[parseInt(index%3)]
       } else {
-        cmp = id3%3 + 6
+        cmp = c[parseInt(index%3)]
       }
-      console.log(cmp)
       if(id3 == cmp) {
         arr[index] = 0
         index = arr.indexOf(number)
